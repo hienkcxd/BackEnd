@@ -36,8 +36,8 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
     public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response) throws AuthenticationException {
         String userName = request.getParameter("username");
         String password = request.getParameter("password");
-        log.info("User name is: {}", userName);
-        log.info("password is: {}", password);
+        log.info("CustomAuthenticationFilter line 39 - User name is: {}", userName);
+        log.info("CustomAuthenticationFilter line 40 - password is: {}", password);
         UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(userName, password);
         return authenticationManager.authenticate(authenticationToken);
     }

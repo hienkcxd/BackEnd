@@ -34,11 +34,11 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 public class UserResource {
     private final UserService userService;
 
-    @GetMapping("/users")
+    @GetMapping("/admin")
     public ResponseEntity<List<User>> getUsers(){
         return ResponseEntity.ok().body(userService.getUsers());
     }
-    @GetMapping("/user")
+    @GetMapping("/userrole")
     public ResponseEntity<List<Role>> getRole(){
         return ResponseEntity.ok().body(userService.getRole());
     }
@@ -63,9 +63,9 @@ public class UserResource {
     @GetMapping("/token/refresh")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
-        if(authorizationHeader != null && authorizationHeader.startsWith("Bearer ")){
+        if(authorizationHeader != null){
             try {
-                String refresh_token = authorizationHeader.substring("Bearer ".length());
+                String refresh_token = authorizationHeader;
                 Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
                 JWTVerifier verifier = JWT.require(algorithm).build();
                 DecodedJWT decodedJWT = verifier.verify(refresh_token);
@@ -85,7 +85,7 @@ public class UserResource {
             }catch (Exception exception){
                 response.setHeader("error", exception.getMessage());
                 response.setStatus(FORBIDDEN.value());
-                //response.sendError(FORBIDDEN.value());
+                response.sendError(FORBIDDEN.value());
                 Map<String, String> error = new HashMap<>();
                 error.put("error_message", exception.getMessage());
                 response.setContentType(APPLICATION_JSON_VALUE);
