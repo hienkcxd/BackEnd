@@ -23,24 +23,24 @@ public class BachEndSes4Application {
 	PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
-	@Bean
-	CommandLineRunner run(UserService userService){
-		return args -> {
-			userService.saveRole(new Role(null, "ROLE_USER"));
-			userService.saveRole(new Role(null, "ROLE_ADMIN"));
-
-			userService.saveUser(new User(null, "Hien Dang", "Hien", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Ly Truc", "Ly", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Anh Bao", "Anh", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "John David", "John", "123", new ArrayList<>()));
-
-			userService.addRoleToUser("Hien", "ROLE_ADMIN");
-			userService.addRoleToUser("Hien", "ROLE_USER");
-			userService.addRoleToUser("Ly", "ROLE_ADMIN");
-			userService.addRoleToUser("Ly", "ROLE_USER");
-			userService.addRoleToUser("Anh", "ROLE_USER");
-			userService.addRoleToUser("John", "ROLE_USER");
-		};
-	}
+//	@Bean
+//	CommandLineRunner run(UserService userService){
+//		return args -> {
+//			userService.saveRole(new Role(null, "ROLE_USER"));
+//			userService.saveRole(new Role(null, "ROLE_ADMIN"));
+//
+//			userService.saveUser(new User(null, "Hien Dang", "Hien", "123", new ArrayList<>()));
+//			userService.saveUser(new User(null, "Ly Truc", "Ly", "123", new ArrayList<>()));
+//			userService.saveUser(new User(null, "Anh Bao", "Anh", "123", new ArrayList<>()));
+//			userService.saveUser(new User(null, "John David", "John", "123", new ArrayList<>()));
+//
+//			userService.addRoleToUser("Hien", "ROLE_ADMIN");
+//			userService.addRoleToUser("Hien", "ROLE_USER");
+//			userService.addRoleToUser("Ly", "ROLE_ADMIN");
+//			userService.addRoleToUser("Ly", "ROLE_USER");
+//			userService.addRoleToUser("Anh", "ROLE_USER");
+//			userService.addRoleToUser("John", "ROLE_USER");
+//		};
+//	}
 
 }

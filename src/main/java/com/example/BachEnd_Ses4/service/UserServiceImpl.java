@@ -10,9 +10,10 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,8 +22,10 @@ import java.util.List;
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepo userRepo;
     private final RoleRepo roleRepo;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
+    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByUserName(username);
         if (user == null){
@@ -30,17 +33,21 @@ public class UserServiceImpl implements UserService, UserDetailsService {
             throw  new UsernameNotFoundException("User not found in the database");
         }else{
             log.info("User found in the database: {}", username);
+            log.info("password found in the database: {}", user.getPassword());
         }
         Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
         user.getRoles().forEach(role ->{
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
-        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(), authorities);
+        log.info("authorities : {}", authorities);
+        return new org.springframework.security.core.userdetails.User(user.getUserName(), user.getPassword(),
+                true, true, true, true, authorities);
     }
 
     @Override
     public User saveUser(User user) {
         log.info("saving new user {} to the database", user.getName());
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepo.save(user);
     }
 
@@ -68,6 +75,11 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     public List<User> getUsers() {
         log.info("Fetching users");
         return userRepo.findAll();
+    }
+
+    @Override
+    public List<Role> getRole() {
+        return roleRepo.findAll();
     }
 
 
