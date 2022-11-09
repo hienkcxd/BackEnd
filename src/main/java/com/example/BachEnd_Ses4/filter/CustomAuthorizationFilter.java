@@ -4,8 +4,10 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.BachEnd_Ses4.UTIL.ConverterToken;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -29,6 +31,10 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Slf4j
 public class CustomAuthorizationFilter extends OncePerRequestFilter {
+    @Autowired
+    private final ConverterToken converterToken = new ConverterToken();
+
+
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
      if (request.getServletPath().equals("/api/login") || request.getServletPath().equals("/api/token/refresh")){
@@ -37,19 +43,10 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
          String authorizationHeader = request.getHeader(AUTHORIZATION);
          if(authorizationHeader != null){
              try {
-                 String token = authorizationHeader;
-                 log.info("CustomAuthorizationFilter line 41 - author:" + authorizationHeader);
-                 Algorithm algorithm = Algorithm.HMAC256("secret".getBytes());
-                 JWTVerifier verifier = JWT.require(algorithm).build();
-                 DecodedJWT decodedJWT = verifier.verify(token);
-                 String username = decodedJWT.getSubject();
-                 String[] roles = decodedJWT.getClaim("roles").asArray(String.class);
+                 String username = converterToken.convertTokenToUserName(request);
                  log.info("CustomAuthorizationFilter line 47 - user decode:" + username);
-                 Collection<SimpleGrantedAuthority> authorities = new ArrayList<>();
-                 stream(roles).forEach(role ->{
-                     authorities.add(new SimpleGrantedAuthority(role));
-                 });
-                 log.info("CustomAuthorizationFilter line 52 - role user decode: "+ authorities);
+                 Collection<SimpleGrantedAuthority> authorities = converterToken.convertTokenToRole(request);
+                 log.info("CustomAuthorizationFilter line 49 - role user decode: "+ authorities);
                  UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, null, authorities);
                  SecurityContextHolder.getContext().setAuthentication(authenticationToken);
                  filterChain.doFilter(request, response);
@@ -57,7 +54,6 @@ public class CustomAuthorizationFilter extends OncePerRequestFilter {
                  log.error("Error logging in: {}", exception.getMessage());
                  response.setHeader("CustomAuthorizationFilter line 58 - error", exception.getMessage());
                  response.setStatus(FORBIDDEN.value());
-                 response.sendError(FORBIDDEN.value());
                  Map<String, String> error = new HashMap<>();
                  error.put("error_message", exception.getMessage());
                  response.setContentType(APPLICATION_JSON_VALUE);

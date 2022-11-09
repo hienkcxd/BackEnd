@@ -4,14 +4,20 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.BachEnd_Ses4.UTIL.ConverterToken;
 import com.example.BachEnd_Ses4.model.Role;
 import com.example.BachEnd_Ses4.model.User;
 import com.example.BachEnd_Ses4.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.query.Procedure;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -32,35 +38,59 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 @Slf4j
 public class UserResource {
+    @Autowired
     private final UserService userService;
 
-    @GetMapping("/admin")
+    @Autowired
+    private ConverterToken converterToken;
+    @GetMapping("/admin/list-user")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<User>> getUsers(){
         return ResponseEntity.ok().body(userService.getUsers());
     }
-    @GetMapping("/userrole")
-    public ResponseEntity<List<Role>> getRole(){
-        return ResponseEntity.ok().body(userService.getRole());
+
+
+    @GetMapping("/admin")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public ResponseEntity<User> getUsersByAdminName(HttpServletRequest request){
+        String username = converterToken.convertTokenToUserName(request);
+        log.info("user resource convertTokenToRole: " + converterToken.convertTokenToRole(request));
+        return ResponseEntity.ok().body(userService.getUser(username));
     }
 
+
+    @GetMapping("/user")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    public ResponseEntity<User> getUsersByUserName(HttpServletRequest request){
+        String username = converterToken.convertTokenToUserName(request);
+        return ResponseEntity.ok().body(userService.getUser(username));
+    }
+
+
     @PostMapping("/user/save")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<User> saveUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 
-    @PostMapping("/role/save")
-    public ResponseEntity<Role> saveUser(@RequestBody Role role){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveRole(role));
-    }
-    @PostMapping("/role/addtouser")
-    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form){
-        userService.addRoleToUser(form.getUserName(), form.getRolename());
-        return ResponseEntity.ok().build();
-    }
+
+
+//    @PostMapping("/role/save")
+//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+//    public ResponseEntity<Role> saveUser(@RequestBody Role role){
+//        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
+//        return ResponseEntity.created(uri).body(userService.saveRole(role));
+//    }
+//    @PostMapping("/role/add-Role-User")
+//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+//    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form){
+//        userService.addRoleToUser(form.getUserName(), form.getRolename());
+//        return ResponseEntity.ok().build();
+//    }
 
     @GetMapping("/token/refresh")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String authorizationHeader = request.getHeader(AUTHORIZATION);
         if(authorizationHeader != null){
