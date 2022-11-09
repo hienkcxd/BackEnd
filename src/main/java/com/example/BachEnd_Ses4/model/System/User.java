@@ -1,9 +1,8 @@
-package com.example.BachEnd_Ses4.model;
+package com.example.BachEnd_Ses4.model.System;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.util.ArrayList;
