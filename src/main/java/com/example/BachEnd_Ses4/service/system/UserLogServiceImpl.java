@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -24,10 +25,15 @@ public class UserLogServiceImpl implements UserLogService{
     @Autowired
     private UserRepo userRepo;
 
+
     @Override
     public void addUserLog(UserLog userLog) {
         userLogRepo.save(userLog);
-        log.info("user log service - line 25: add new log success");
+    }
+
+    @Override
+    public List<UserLog> listUserLogByTime(String username, Date startDate, Date enDate) {
+        return null;
     }
 
     @Override
