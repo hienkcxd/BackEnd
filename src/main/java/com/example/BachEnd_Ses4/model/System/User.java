@@ -8,6 +8,7 @@ import java.util.Collection;
 import java.util.List;
 
 import static javax.persistence.FetchType.EAGER;
+import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Setter
@@ -26,11 +27,4 @@ public class User {
     @ManyToMany(fetch = EAGER)
     private Collection<Role> roles = new ArrayList<>();
 
-    //quan hệ 1 nhiều với store
-    @OneToMany(mappedBy = "userStore")
-    private List<Store> storesOfUser;
-
-    //quan hệ 1 nhiều với userlog
-    @OneToMany(mappedBy = "userLog")
-    private List<UserLog> logOfUser;
 }

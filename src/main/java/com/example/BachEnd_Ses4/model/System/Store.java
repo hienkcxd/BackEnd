@@ -16,9 +16,6 @@ public class Store {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String name;
-
-    @ManyToOne
-    @JoinColumn(name ="id_user")
-    private User userStore;
+    private String storeName;
+    private String username;
 }

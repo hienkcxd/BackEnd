@@ -17,8 +17,5 @@ public class UserLog {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String description;
-
-    @ManyToOne
-    @JoinColumn(name ="id_user")
-    private User userLog;
+    private String username;
 }

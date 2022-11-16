@@ -1,4 +1,4 @@
-package com.example.BachEnd_Ses4.api;
+package com.example.BachEnd_Ses4.api.user.system;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
@@ -7,7 +7,7 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.BachEnd_Ses4.UTIL.ConverterToken;
 import com.example.BachEnd_Ses4.model.System.Role;
 import com.example.BachEnd_Ses4.model.System.User;
-import com.example.BachEnd_Ses4.service.UserService;
+import com.example.BachEnd_Ses4.service.system.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;

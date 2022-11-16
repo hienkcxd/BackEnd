@@ -1,9 +1,9 @@
-package com.example.BachEnd_Ses4.service;
+package com.example.BachEnd_Ses4.service.system;
 
 import com.example.BachEnd_Ses4.model.System.Role;
 import com.example.BachEnd_Ses4.model.System.User;
-import com.example.BachEnd_Ses4.repositories.RoleRepo;
-import com.example.BachEnd_Ses4.repositories.UserRepo;
+import com.example.BachEnd_Ses4.repositories.system.RoleRepo;
+import com.example.BachEnd_Ses4.repositories.system.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
