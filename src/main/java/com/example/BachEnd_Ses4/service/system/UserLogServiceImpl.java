@@ -22,8 +22,7 @@ public class UserLogServiceImpl implements UserLogService{
 
     @Autowired
     private UserLogRepo userLogRepo;
-    @Autowired
-    private UserRepo userRepo;
+
 
 
     @Override

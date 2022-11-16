@@ -19,5 +19,5 @@ public class UserLog {
     private Long id;
     private String description;
     private String username;
-    private Date createDate;
+    private Long createDate;
 }

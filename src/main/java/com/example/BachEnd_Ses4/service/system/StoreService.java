@@ -10,5 +10,5 @@ public interface StoreService {
     public List<Store> listStoreByUsername(String username);
     public List<Store> listStore();
     public void update(Store store);
-    public void delete(Store store);
+    public void delete(Long id);
 }
