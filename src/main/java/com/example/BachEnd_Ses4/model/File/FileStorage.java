@@ -1,8 +1,6 @@
 package com.example.BachEnd_Ses4.model.File;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -11,8 +9,9 @@ import java.util.Date;
 
 import static javax.persistence.FetchType.EAGER;
 
-@Entity
-@Data
+//@Entity
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class FileStorage {

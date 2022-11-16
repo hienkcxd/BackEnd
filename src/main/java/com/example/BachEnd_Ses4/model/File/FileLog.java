@@ -1,8 +1,6 @@
 package com.example.BachEnd_Ses4.model.File;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,8 +8,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
-@Entity
-@Data
+//@Entity
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 public class FileLog {

@@ -11,7 +11,7 @@ import java.util.Collection;
 
 import static javax.persistence.FetchType.EAGER;
 
-@Entity
+//@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
