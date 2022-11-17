@@ -1,10 +1,8 @@
 package com.example.BachEnd_Ses4;
 
 import com.example.BachEnd_Ses4.UTIL.ConvertDateToLong;
-import com.example.BachEnd_Ses4.model.System.Role;
-import com.example.BachEnd_Ses4.model.System.Store;
-import com.example.BachEnd_Ses4.model.System.User;
-import com.example.BachEnd_Ses4.model.System.UserLog;
+import com.example.BachEnd_Ses4.model.System.*;
+import com.example.BachEnd_Ses4.service.system.AreaService;
 import com.example.BachEnd_Ses4.service.system.StoreService;
 import com.example.BachEnd_Ses4.service.system.UserLogService;
 import com.example.BachEnd_Ses4.service.system.UserService;
@@ -36,50 +34,20 @@ public class BachEndSes4Application {
 		return new BCryptPasswordEncoder();
 	}
 	@Bean
-	CommandLineRunner run(UserService userService, UserLogService userLogService, StoreService storeService){
+	CommandLineRunner run(UserService userService, UserLogService userLogService, StoreService storeService, AreaService areaService){
 		return args -> {
 			userService.saveRole(new Role(null, "ROLE_USER"));
 			userService.saveRole(new Role(null, "ROLE_ADMIN"));
 
-			userService.saveUser(new User(null, "The Hien", "hien", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Kieu Phong", "phong", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Doan Du", "doan", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Duong Qua", "duong", "123", new ArrayList<>()));
+			userService.saveUser(new User(null, "The Hien", "hien", "123", new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+			userService.saveUser(new User(null, "Kieu Phong", "phong", "123", new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+			userService.saveUser(new User(null, "Doan Du", "doan", "123", new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
+			userService.saveUser(new User(null, "Duong Qua", "duong", "123", new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>()));
 
 			userService.addRoleToUser("hien", "ROLE_ADMIN");
 			userService.addRoleToUser("phong", "ROLE_ADMIN");
 			userService.addRoleToUser("doan", "ROLE_USER");
 			userService.addRoleToUser("duong", "ROLE_USER");
-
-			SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
-			long mills = new Date().getTime()/3600000;
-			userLogService.addUserLog(new UserLog(null, "log demo 1", "doan",
-					mills)
-			);
-			userLogService.addUserLog(new UserLog(null, "log demo 2", "doan",
-					mills)
-			);
-			userLogService.addUserLog(new UserLog(null, "log demo 3", "doan",
-					mills)
-			);
-			userLogService.addUserLog(new UserLog(null, "log demo 4", "duong",
-					mills)
-			);
-			userLogService.addUserLog(new UserLog(null, "log demo 5", "duong",
-					mills)
-			);
-			userLogService.addUserLog(new UserLog(null, "log demo 6", "duong",
-					mills)
-			);
-			userLogService.addUserLog(new UserLog(null, "log demo 7", "doan",
-					mills)
-			);
-			storeService.addStore(new Store(null, "store 1", "doan"));
-			storeService.addStore(new Store(null, "store 2", "duong"));
-			storeService.addStore(new Store(null, "store 3", "duong"));
-			storeService.addStore(new Store(null, "store 4", "duong"));
-			storeService.addStore(new Store(null, "store 5", "doan"));
-			storeService.addStore(new Store(null, "store 6", "doan"));
 		};
 	}
 

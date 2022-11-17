@@ -17,7 +17,7 @@ import static javax.persistence.FetchType.LAZY;
 @AllArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
 
@@ -26,5 +26,14 @@ public class User {
     private String password;
     @ManyToMany(fetch = EAGER)
     private Collection<Role> roles = new ArrayList<>();
+
+    @OneToMany(mappedBy = "userWithArea")
+    private List<Area> userAreaList;
+
+    @OneToMany(mappedBy = "userWithStore")
+    private List<Store> userStoreList;
+
+    @OneToMany(mappedBy = "userWithLog")
+    private List<UserLog> userLogList;
 
 }

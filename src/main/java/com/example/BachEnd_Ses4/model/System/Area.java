@@ -13,18 +13,18 @@ import javax.persistence.*;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Store {
+public class Area {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String storeName;
+    private String areaName;
 
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "id_user")
-    private User userWithStore;
+    private User userWithArea;
 
-    public Store(String storeName) {
-        this.storeName=storeName;
+    public Area(String areaName) {
+        this.areaName = areaName;
     }
 }

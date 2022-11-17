@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -17,6 +18,16 @@ import java.util.List;
 public class StoreServiceImpl implements StoreService{
     @Autowired
     private StoreRepo storeRepo;
+
+    @PostConstruct
+    public void init(){
+        storeRepo.save(new Store("store 1"));
+        storeRepo.save(new Store("store 2"));
+        storeRepo.save(new Store("store 3"));
+        storeRepo.save(new Store("store 4"));
+        storeRepo.save(new Store("store 5"));
+        storeRepo.save(new Store("store 6"));
+    }
     @Override
     public void addStore(Store store) {
         storeRepo.save(store);
@@ -24,7 +35,7 @@ public class StoreServiceImpl implements StoreService{
 
     @Override
     public Store detailStore(Long id) {
-        return storeRepo.getReferenceById(id);
+        return storeRepo.findById(id).get();
     }
 
     @Override

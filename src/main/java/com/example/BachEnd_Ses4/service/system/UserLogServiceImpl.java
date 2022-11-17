@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,6 +25,19 @@ public class UserLogServiceImpl implements UserLogService{
     @Autowired
     private UserLogRepo userLogRepo;
 
+    @PostConstruct
+    public void init(){
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        long mills = new Date().getTime()/3600000;
+        userLogRepo.save(new UserLog("log demo 1",mills));
+        userLogRepo.save(new UserLog("log demo 2",mills));
+        userLogRepo.save(new UserLog("log demo 3",mills));
+        userLogRepo.save(new UserLog("log demo 4",mills));
+        userLogRepo.save(new UserLog("log demo 5",mills));
+        userLogRepo.save(new UserLog("log demo 6",mills));
+        userLogRepo.save(new UserLog("log demo 7",mills));
+        userLogRepo.save(new UserLog("log demo 8",mills));
+    }
 
 
     @Override
