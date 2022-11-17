@@ -49,18 +49,18 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
         SimpleDateFormat sdf=new SimpleDateFormat("HH:mm -- dd/MM/YYYY");
         String access_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 7*24*60*60*1000))
                 .withIssuer(request.getRequestURL().toString())
                 .withClaim("roles", user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList()))
                 .withClaim("user", user.getUsername())
-                .withClaim("expies at:", sdf.format(System.currentTimeMillis() + 10*60*1000))
+                .withClaim("expies at:", sdf.format(System.currentTimeMillis() + 7*24*60*60*1000))
                 .sign(algorithm);
 
         String refresh_token = JWT.create()
                 .withSubject(user.getUsername())
-                .withExpiresAt(new Date(System.currentTimeMillis() + 30*60*1000))
+                .withExpiresAt(new Date(System.currentTimeMillis() + 7*24*60*60*1000))
                 .withIssuer(request.getRequestURL().toString())
-                .withClaim("expies at:", sdf.format(System.currentTimeMillis() + 30*60*1000))
+                .withClaim("expies at:", sdf.format(System.currentTimeMillis() + 7*24*60*60*1000))
                 .sign(algorithm);
 //        response.setHeader("access_token", access_token);
 //        response.setHeader("refresh_token", refresh_token);
