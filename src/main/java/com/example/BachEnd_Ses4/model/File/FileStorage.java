@@ -23,7 +23,6 @@ public class FileStorage {
     private Long id;
     private String fileName;
     private String fileType;
-    private String username;
     private Long createDate;
     private String resolution;
     private String times;
