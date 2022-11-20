@@ -1,5 +1,8 @@
 package com.example.BachEnd_Ses4.model.System;
 
+import com.example.BachEnd_Ses4.model.File.FileSchedule;
+import com.example.BachEnd_Ses4.model.File.FileStorage;
+import com.example.BachEnd_Ses4.model.File.PlayList;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,13 +30,30 @@ public class User {
     @ManyToMany(fetch = EAGER)
     private Collection<Role> roles = new ArrayList<>();
 
+    // liên kết các model trong system
     @OneToMany(mappedBy = "userWithArea")
     private List<Area> userAreaList;
-
     @OneToMany(mappedBy = "userWithStore")
     private List<Store> userStoreList;
-
     @OneToMany(mappedBy = "userWithLog")
     private List<UserLog> userLogList;
 
+    //liên kết các model trong file
+    @OneToMany(mappedBy = "userWithFileStorage")
+    private List<FileStorage> userFileStorageList;
+//    @OneToMany(mappedBy = "userWithFileSchedule")
+//    private List<FileSchedule> userWithFileScheduleList;
+//    @OneToMany(mappedBy = "userWithPlaylist")
+//    private List<PlayList> userWithPlaylist;
+
+    //liên kết các model trong device
+
+
+    public User(Long id, String name, String userName, String password, Collection<Role> roles) {
+        this.id = id;
+        this.name = name;
+        this.userName = userName;
+        this.password = password;
+        this.roles = roles;
+    }
 }

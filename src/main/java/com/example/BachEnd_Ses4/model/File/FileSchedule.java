@@ -1,6 +1,8 @@
 package com.example.BachEnd_Ses4.model.File;
 
 import com.example.BachEnd_Ses4.model.Device.Device;
+import com.example.BachEnd_Ses4.model.System.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,6 +24,8 @@ public class FileSchedule {
     private String scheduleName;
     private String userName;
     private String scheduleYpe;
+    private Long startSchedule;
+    private Long endSchedule;
 
     //quan hệ nhiều nhiều với bản playlist
     @ManyToMany(fetch = EAGER)
@@ -31,4 +35,9 @@ public class FileSchedule {
 
 //    @ManyToMany(mappedBy = "fileSchedulesDevice")
 //    private Collection<Device> devices = new ArrayList<>();
+//
+//    @ManyToOne
+//    @JsonIgnore
+//    @JoinColumn(name = "id_user")
+//    private User userWithFileSchedule;
 }

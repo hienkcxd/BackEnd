@@ -1,5 +1,7 @@
 package com.example.BachEnd_Ses4.model.File;
 
+import com.example.BachEnd_Ses4.model.System.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
@@ -27,6 +29,11 @@ public class PlayList {
     private Collection<FileStorage> fileStorages = new ArrayList<>();
 
     //quan hệ nhiều nhiều với bảng file schedule
-    @ManyToMany(mappedBy = "playListsSchedule")
-    private Collection<FileSchedule> fileSchedules = new ArrayList<>();
+//    @ManyToMany(mappedBy = "playListsSchedule")
+//    private Collection<FileSchedule> fileSchedules = new ArrayList<>();
+
+//    @ManyToOne
+//    @JsonIgnore
+//    @JoinColumn(name = "id_user")
+//    private User userWithPlaylist;
 }

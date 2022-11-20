@@ -21,14 +21,14 @@ public class AreaServiceImpl implements AreaService{
     @Autowired
     private AreaRepo areaRepo;
 
-    @PostConstruct
-    public void init(){
-        areaRepo.save(new Area(null, "area 1", null));
-        areaRepo.save(new Area(null, "area 2",null));
-        areaRepo.save(new Area(null, "area 3", null));
-        areaRepo.save(new Area(null, "area 4", null));
-        areaRepo.save(new Area(null, "area 5", null));
-    }
+//    @PostConstruct
+//    public void init(){
+//        areaRepo.save(new Area(null, "area 1", null));
+//        areaRepo.save(new Area(null, "area 2",null));
+//        areaRepo.save(new Area(null, "area 3", null));
+//        areaRepo.save(new Area(null, "area 4", null));
+//        areaRepo.save(new Area(null, "area 5", null));
+//    }
     @Override
     public void addArea(Area area) {
         areaRepo.save(area);

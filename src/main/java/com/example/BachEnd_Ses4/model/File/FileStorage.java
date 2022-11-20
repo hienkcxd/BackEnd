@@ -1,11 +1,14 @@
 package com.example.BachEnd_Ses4.model.File;
 
+import com.example.BachEnd_Ses4.model.System.User;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 import static javax.persistence.FetchType.EAGER;
 
@@ -21,7 +24,7 @@ public class FileStorage {
     private String fileName;
     private String fileType;
     private String username;
-    private Date createDate;
+    private Long createDate;
     private String resolution;
     private String times;
 
@@ -29,5 +32,11 @@ public class FileStorage {
     @ManyToMany(mappedBy = "fileStorages")
     private Collection<PlayList> playLists = new ArrayList<>();
 
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "id_user")
+    private User userWithFileStorage;
 
+//    @OneToMany(mappedBy = "fileWithLog")
+//    private List<FileLog> listFileInLog;
 }
