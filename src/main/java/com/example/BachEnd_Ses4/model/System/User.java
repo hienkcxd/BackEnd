@@ -41,10 +41,6 @@ public class User {
     //liên kết các model trong file
     @OneToMany(mappedBy = "userWithFileStorage")
     private List<FileStorage> userFileStorageList;
-//    @OneToMany(mappedBy = "userWithFileSchedule")
-//    private List<FileSchedule> userWithFileScheduleList;
-//    @OneToMany(mappedBy = "userWithPlaylist")
-//    private List<PlayList> userWithPlaylist;
 
     //liên kết các model trong device
 

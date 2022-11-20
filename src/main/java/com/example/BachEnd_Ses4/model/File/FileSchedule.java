@@ -35,9 +35,5 @@ public class FileSchedule {
 
 //    @ManyToMany(mappedBy = "fileSchedulesDevice")
 //    private Collection<Device> devices = new ArrayList<>();
-//
-//    @ManyToOne
-//    @JsonIgnore
-//    @JoinColumn(name = "id_user")
-//    private User userWithFileSchedule;
+
 }

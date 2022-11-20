@@ -32,8 +32,4 @@ public class PlayList {
 //    @ManyToMany(mappedBy = "playListsSchedule")
 //    private Collection<FileSchedule> fileSchedules = new ArrayList<>();
 
-//    @ManyToOne
-//    @JsonIgnore
-//    @JoinColumn(name = "id_user")
-//    private User userWithPlaylist;
 }
