@@ -8,7 +8,7 @@ import java.util.Collection;
 
 import static javax.persistence.FetchType.EAGER;
 
-//@Entity
+@Entity
 @Setter
 @Getter
 @NoArgsConstructor

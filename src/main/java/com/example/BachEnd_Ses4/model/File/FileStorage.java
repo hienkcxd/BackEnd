@@ -9,7 +9,7 @@ import java.util.Date;
 
 import static javax.persistence.FetchType.EAGER;
 
-//@Entity
+@Entity
 @Setter
 @Getter
 @NoArgsConstructor
@@ -28,4 +28,6 @@ public class FileStorage {
     //quan hệ nhiều nhiều với bản playlist
     @ManyToMany(mappedBy = "fileStorages")
     private Collection<PlayList> playLists = new ArrayList<>();
+
+
 }

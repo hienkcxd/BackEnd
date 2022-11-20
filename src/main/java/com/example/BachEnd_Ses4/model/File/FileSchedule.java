@@ -11,7 +11,7 @@ import java.util.Collection;
 
 import static javax.persistence.FetchType.EAGER;
 
-//@Entity
+@Entity
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -29,6 +29,6 @@ public class FileSchedule {
             joinColumns = @JoinColumn(name = "schedule_id"), inverseJoinColumns = @JoinColumn(name = "playlist_id"))
     private Collection<PlayList> playListsSchedule = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "fileSchedulesDevice")
-    private Collection<Device> devices = new ArrayList<>();
+//    @ManyToMany(mappedBy = "fileSchedulesDevice")
+//    private Collection<Device> devices = new ArrayList<>();
 }

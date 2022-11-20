@@ -28,8 +28,8 @@ public class Device {
     private String activelocation;
     private boolean active;
 
-    @ManyToMany(fetch = EAGER)
-    @JoinTable(name = "schedule_into_device",
-            joinColumns = @JoinColumn(name = "device_id"), inverseJoinColumns = @JoinColumn(name = "schedule_id"))
-    private Collection<FileSchedule> fileSchedulesDevice = new ArrayList<>();
+//    @ManyToMany(fetch = EAGER)
+//    @JoinTable(name = "schedule_into_device",
+//            joinColumns = @JoinColumn(name = "device_id"), inverseJoinColumns = @JoinColumn(name = "schedule_id"))
+//    private Collection<FileSchedule> fileSchedulesDevice = new ArrayList<>();
 }
