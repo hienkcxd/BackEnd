@@ -21,8 +21,8 @@ public class FileLog {
     private Long startTime;
     private Long endTime;
 
-//    @ManyToOne
-//    @JsonIgnore
-//    @JoinColumn(name = "id_file")
-//    private FileStorage fileWithLog;
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "id_file")
+    private FileStorage fileWithLog;
 }

@@ -62,10 +62,11 @@ public class FileStorageController {
 
     @PutMapping("")
     public void updateFile(@RequestBody FileStorage fileStorage){
-        if(getPrincipal().equals(fileStorage.getUserWithFileStorage().getUserName())){
+        FileStorage fileCheck = fileStorageService.detail(fileStorage.getId());
+        if(getPrincipal().equals(fileCheck.getUserWithFileStorage().getUserName())){
             fileStorageService.update(fileStorage);
         }else {
-            log.info("user filestorage controller - line 67: user này không có quyền update file naày");
+            log.info("user filestorage controller - line 67: user này không có quyền update file này");
             ResponseEntity.badRequest();
         }
     }

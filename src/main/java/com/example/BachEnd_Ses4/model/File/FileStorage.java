@@ -26,16 +26,14 @@ public class FileStorage {
     private Long createDate;
     private String resolution;
     private String times;
+    private String urlGoogleDrive;
 
-    //quan hệ nhiều nhiều với bản playlist
-    @ManyToMany(mappedBy = "fileStorages")
-    private Collection<PlayList> playLists = new ArrayList<>();
 
     @ManyToOne
     @JsonIgnore
     @JoinColumn(name = "id_user")
     private User userWithFileStorage;
 
-//    @OneToMany(mappedBy = "fileWithLog")
-//    private List<FileLog> listFileInLog;
+    @OneToMany(mappedBy = "fileWithLog")
+    private List<FileLog> listFileInLog;
 }
