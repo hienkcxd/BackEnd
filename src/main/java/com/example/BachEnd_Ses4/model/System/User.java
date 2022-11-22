@@ -50,12 +50,14 @@ public class User {
     //liên kết các model trong device
 
 
-    public User(Long id, String name, String userName, String password, Collection<Role> roles) {
+    public User(Long id, String name, String userName,String email, String phone, String password, Collection<Role> roles) {
         this.id = id;
         this.name = name;
         this.userName = userName;
         this.password = password;
         this.roles = roles;
+        this.email = email;
+        this.phone = phone;
     }
 
 }

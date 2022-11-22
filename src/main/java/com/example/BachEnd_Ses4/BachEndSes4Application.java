@@ -39,10 +39,10 @@ public class BachEndSes4Application {
 			userService.saveRole(new Role(null, "ROLE_USER"));
 			userService.saveRole(new Role(null, "ROLE_ADMIN"));
 
-			userService.saveUser(new User(null, "The Hien", "hien", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Kieu Phong", "phong", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Doan Du", "doan", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Duong Qua", "duong", "123", new ArrayList<>()));
+			userService.saveUser(new User(null, "The Hien", "hien","hien","hien", "123", new ArrayList<>()));
+			userService.saveUser(new User(null, "Kieu Phong", "phong","phong","phong", "123", new ArrayList<>()));
+			userService.saveUser(new User(null, "Doan Du", "doan","doan","doan", "123", new ArrayList<>()));
+			userService.saveUser(new User(null, "Duong Qua", "duong","duong","duong", "123", new ArrayList<>()));
 
 			userService.addRoleToUser("hien", "ROLE_ADMIN");
 			userService.addRoleToUser("phong", "ROLE_ADMIN");
