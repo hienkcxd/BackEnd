@@ -2,12 +2,10 @@ package com.example.BachEnd_Ses4.model.Device;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.List;
 
-//@Entity
+@Entity
 @Setter
 @Getter
 @NoArgsConstructor
@@ -16,5 +14,9 @@ public class DeviceGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    private String groupName;
     private String username;
+
+    @OneToMany(mappedBy = "groupContain")
+    private List<Device> deviceinGroup;
 }

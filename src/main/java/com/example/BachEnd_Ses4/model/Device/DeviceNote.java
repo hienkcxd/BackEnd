@@ -1,13 +1,11 @@
 package com.example.BachEnd_Ses4.model.Device;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
-//@Entity
+@Entity
 @Setter
 @Getter
 @NoArgsConstructor
@@ -18,4 +16,9 @@ public class DeviceNote {
     private Long id;
     private String deviceName;
     private String description;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "id_device")
+    public Device NoteOfDevice;
 }
