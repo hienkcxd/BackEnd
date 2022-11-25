@@ -2,6 +2,7 @@ package com.example.BachEnd_Ses4.model.Device;
 
 import com.example.BachEnd_Ses4.model.File.FileSchedule;
 import com.example.BachEnd_Ses4.model.File.PlayList;
+import com.example.BachEnd_Ses4.model.System.Store;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
@@ -28,6 +29,7 @@ public class Device {
     private String firmwareVersion;
     private String appVersion;
     private String activelocation;
+    private String areDevice;
     private boolean active;
 
     @ManyToMany(fetch = EAGER)
@@ -42,6 +44,11 @@ public class Device {
 
     @OneToMany(mappedBy = "LogOfDevice")
     private List<DeviceLog> listDeviceLog;
+
+    @ManyToOne
+    @JsonIgnore
+    @JoinColumn(name = "id_store")
+    private Store storeContain;
 
     @ManyToOne
     @JsonIgnore

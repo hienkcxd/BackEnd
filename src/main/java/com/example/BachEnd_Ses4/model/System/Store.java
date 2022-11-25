@@ -1,5 +1,6 @@
 package com.example.BachEnd_Ses4.model.System;
 
+import com.example.BachEnd_Ses4.model.Device.Device;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -7,6 +8,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Setter
@@ -23,6 +25,9 @@ public class Store {
     @JsonIgnore
     @JoinColumn(name = "id_user")
     private User userWithStore;
+
+    @OneToMany(mappedBy = "storeContain")
+    private List<Device> listDeviceinStore;
 
     public Store(String storeName) {
         this.storeName=storeName;
