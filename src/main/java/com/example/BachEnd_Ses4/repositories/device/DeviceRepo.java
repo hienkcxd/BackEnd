@@ -11,4 +11,7 @@ public interface DeviceRepo extends JpaRepository<Device, Long> {
 
     @Query(value = "select s from Device s where s.storeContain.id = ?1")
     public List<Device> findByStore(Long id);
+
+    @Query(value = "select s from Device s where s.deviceName = ?1")
+    public Device findByDeviceName(String deviceName);
 }

@@ -18,7 +18,7 @@ public class DeviceServiceImpl implements DeviceService{
     @Autowired
     private DeviceRepo deviceRepo;
     @Override
-    public void adDevice(Device device) {
+    public void addDevice(Device device) {
         deviceRepo.save(device);
     }
 
@@ -40,6 +40,11 @@ public class DeviceServiceImpl implements DeviceService{
     @Override
     public Device detail(Long id) {
         return deviceRepo.findById(id).get();
+    }
+
+    @Override
+    public Device detailByDeviceName(String deviceName) {
+        return deviceRepo.findByDeviceName(deviceName);
     }
 
     @Override
@@ -66,6 +71,6 @@ public class DeviceServiceImpl implements DeviceService{
 
     @Override
     public void delete(Long id) {
-
+        deviceRepo.delete(detail(id));
     }
 }
