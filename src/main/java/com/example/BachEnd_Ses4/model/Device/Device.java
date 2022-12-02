@@ -31,11 +31,11 @@ public class Device {
     private String deviceName;
     private String firmwareVersion;
     private String appVersion;
-    private String activelocation;
-    private String areDevice;
+    private String activeLocation;
     private boolean active;
 
     @ManyToMany(fetch = EAGER)
+    @JsonIgnore
     @JoinTable(name = "schedule_into_device",
             joinColumns = @JoinColumn(name = "device_id"),
             inverseJoinColumns = @JoinColumn(name = "schedule_id")

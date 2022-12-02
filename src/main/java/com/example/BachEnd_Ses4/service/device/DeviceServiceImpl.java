@@ -51,7 +51,7 @@ public class DeviceServiceImpl implements DeviceService{
     public void updateDesDevice(Device device) {
         Device deviceDb = detail(device.getId());
         deviceDb.setDeviceName(device.getDeviceName());
-        deviceDb.setAreDevice(device.getAreDevice());
+        deviceDb.setActiveLocation(device.getActiveLocation());
         deviceRepo.save(deviceDb);
     }
 

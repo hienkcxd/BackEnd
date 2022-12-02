@@ -9,6 +9,5 @@ import java.util.List;
 public interface DeviceNoteRepo extends JpaRepository<DeviceNote, Long> {
     @Query(value = "select s from DeviceNote s where s.NoteOfDevice.deviceName = ?1")
     public List<DeviceNote> findByDeviceName(String deviceName);
-
     public List<DeviceNote> findByUserName(String username);
 }

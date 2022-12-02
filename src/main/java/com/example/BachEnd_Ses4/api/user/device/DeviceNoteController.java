@@ -41,7 +41,13 @@ public class DeviceNoteController {
 
     @GetMapping("")
     private List<DeviceNote> findByUsername(){
-        return deviceNoteService.findByUsername(getPrincipal());
+        log.info(getPrincipal());
+        List<DeviceNote> list = deviceNoteService.findByUsername(getPrincipal());
+        if(list.size()>0){
+            return list;
+        }else {
+            return null;
+        }
     }
 
     @GetMapping("/{deviceName}")
