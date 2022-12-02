@@ -34,6 +34,11 @@ public class DeviceNoteServiceImpl implements DeviceNoteService{
     }
 
     @Override
+    public DeviceNote detail(Long id) {
+        return deviceNoteRepo.findById(id).get();
+    }
+
+    @Override
     public void addDeviceNote(DeviceNote deviceNote) {
         deviceNoteRepo.save(deviceNote);
     }
@@ -47,6 +52,6 @@ public class DeviceNoteServiceImpl implements DeviceNoteService{
 
     @Override
     public void deleteDeviceNote(Long id) {
-        deviceNoteRepo.delete(deviceNoteRepo.findById(id).get());
+        deviceNoteRepo.delete(detail(id));
     }
 }
