@@ -8,6 +8,4 @@ import java.util.List;
 
 public interface DeviceGroupRepo extends JpaRepository<DeviceGroup, Long> {
     public List<DeviceGroup> findByUsername(String username);
-    @Query(value = "select s from DeviceGroup s where s.groupName = ?1")
-    public List<DeviceGroup> findByGroupName(String groupName);
 }

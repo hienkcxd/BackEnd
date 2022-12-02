@@ -14,7 +14,7 @@ public class DeviceNote {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String deviceName;
+    private String userName;
     private String description;
 
     @ManyToOne

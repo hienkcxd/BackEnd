@@ -22,10 +22,6 @@ public class DeviceGroupServiceImpl implements DeviceGroupService{
         return deviceGroupRepo.findByUsername(username);
     }
 
-    @Override
-    public List<DeviceGroup> findByGroupName(String GroupName) {
-        return deviceGroupRepo.findByGroupName(GroupName);
-    }
 
     @Override
     public List<DeviceGroup> findAll() {

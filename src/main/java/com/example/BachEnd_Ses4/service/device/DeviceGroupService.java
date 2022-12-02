@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface DeviceGroupService {
     public List<DeviceGroup> findByUsername(String username);
-    public List<DeviceGroup> findByGroupName(String GroupName);
     public List<DeviceGroup> findAll();
 
     public void addGroup(DeviceGroup deviceGroup);
