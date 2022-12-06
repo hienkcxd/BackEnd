@@ -48,7 +48,7 @@ public class UserResource {
 
     @GetMapping("/login-token")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
-    public ResponseEntity<Map<String, String>> checkLogin(HttpServletRequest request){
+    public ResponseEntity checkLogin(HttpServletRequest request){
         return ResponseEntity.ok("200");
     }
 
