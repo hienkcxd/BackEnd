@@ -46,6 +46,11 @@ public class UserResource {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
+    @GetMapping("/login-token")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    public ResponseEntity<Map<String, String>> checkLogin(HttpServletRequest request){
+        return ResponseEntity.ok("200");
+    }
 
     @GetMapping("/admin")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
