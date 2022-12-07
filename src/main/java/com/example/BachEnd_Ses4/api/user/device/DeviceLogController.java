@@ -19,6 +19,7 @@ import java.util.List;
 @RequestMapping("/api/user/device-log")
 @RequiredArgsConstructor
 @Slf4j
+@CrossOrigin("http://localhost:4200")
 @PreAuthorize("hasAnyAuthority('ROLE_USER')")
 public class DeviceLogController {
     @Autowired
