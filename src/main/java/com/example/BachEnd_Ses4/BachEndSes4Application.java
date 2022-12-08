@@ -23,7 +23,7 @@ public class BachEndSes4Application {
 	PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
-	@Bean
+//	@Bean
 	CommandLineRunner run(UserService userService){
 		return args -> {
 			userService.saveRole(new Role(null, "ROLE_USER"));
@@ -31,13 +31,13 @@ public class BachEndSes4Application {
 
 			userService.saveUser(new User(null, "Hien Dang", "Hien", "123", new ArrayList<>()));
 			userService.saveUser(new User(null, "Ly Truc", "Ly", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Anh Bao", "Anh", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "John David", "John", "123", new ArrayList<>()));
+			userService.saveUser(new User(null, "Coop", "coop", "123", new ArrayList<>()));
+			userService.saveUser(new User(null, "Lotte", "lotte", "123", new ArrayList<>()));
 
 			userService.addRoleToUser("Hien", "ROLE_ADMIN");
 			userService.addRoleToUser("Ly", "ROLE_ADMIN");
-			userService.addRoleToUser("Anh", "ROLE_USER");
-			userService.addRoleToUser("John", "ROLE_USER");
+			userService.addRoleToUser("coop", "ROLE_USER");
+			userService.addRoleToUser("lotte", "ROLE_USER");
 		};
 	}
 
