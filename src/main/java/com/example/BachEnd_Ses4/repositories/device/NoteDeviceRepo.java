@@ -6,7 +6,8 @@ import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
-public interface DeviceNoteRepo extends JpaRepository<DeviceNote, Long> {
+public interface NoteDeviceRepo extends JpaRepository<DeviceNote, Long> {
+
     @Query(value = "select s from DeviceNote s where s.deviceName = ?1")
     public List<DeviceNote> findByDeviceName(String deviceName);
     @Query(value = "select s from DeviceNote s where s.userName = ?1")

@@ -4,7 +4,7 @@ import com.example.BachEnd_Ses4.model.Device.DeviceNote;
 
 import java.util.List;
 
-public interface DeviceNoteService {
+public interface NoteDeviceService {
     public List<DeviceNote> findByUsername(String username);
     public List<DeviceNote> findByDevicename(String deviceName);
     public List<DeviceNote> findAll();

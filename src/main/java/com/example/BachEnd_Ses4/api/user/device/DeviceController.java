@@ -24,6 +24,7 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
 
+
     private String getPrincipal(){
         String userName = null;
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
