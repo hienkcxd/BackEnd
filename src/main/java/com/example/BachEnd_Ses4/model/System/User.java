@@ -35,21 +35,6 @@ public class User {
     @ManyToMany(fetch = EAGER)
     private Collection<Role> roles = new ArrayList<>();
 
-    // liên kết các model trong system
-    @OneToMany(mappedBy = "userWithArea")
-    private List<Area> userAreaList;
-    @OneToMany(mappedBy = "userWithStore")
-    private List<Store> userStoreList;
-    @OneToMany(mappedBy = "userWithLog")
-    private List<UserLog> userLogList;
-
-    //liên kết các model trong file
-    @OneToMany(mappedBy = "userWithFileStorage")
-    private List<FileStorage> userFileStorageList;
-
-    //liên kết các model trong device
-
-
     public User(Long id, String name, String userName,String email, String phone, String password, Collection<Role> roles) {
         this.id = id;
         this.name = name;

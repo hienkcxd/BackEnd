@@ -10,6 +10,6 @@ public interface NoteDeviceRepo extends JpaRepository<DeviceNote, Long> {
 
     @Query(value = "select s from DeviceNote s where s.deviceName = ?1")
     public List<DeviceNote> findByDeviceName(String deviceName);
-    @Query(value = "select s from DeviceNote s where s.userName = ?1")
+    @Query(value = "select s from DeviceNote s where s.username = ?1")
     public List<DeviceNote> findByUserName(String username);
 }

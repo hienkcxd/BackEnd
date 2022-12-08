@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface FileStorageRepo extends JpaRepository<FileStorage, Long> {
-    @Query(value = "select f from FileStorage f where f.userWithFileStorage.userName = ?1")
+    @Query(value = "select f from FileStorage f where f.username = ?1")
     public List<FileStorage> findByUsername(String username);
 }

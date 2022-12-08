@@ -17,7 +17,7 @@ public class DeviceLog {
     private Long id;
     private String deviceName;
     private String username;
+    private String storeName;
     private String contentLog;
     private Long createDate;
-
 }

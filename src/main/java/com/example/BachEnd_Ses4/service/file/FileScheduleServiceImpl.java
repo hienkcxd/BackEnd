@@ -40,7 +40,6 @@ public class FileScheduleServiceImpl implements FileScheduleService {
         fileScheduleDb.setStartSchedule(fileSchedule.getStartSchedule());
         fileScheduleDb.setEndSchedule(fileSchedule.getEndSchedule());
         fileScheduleDb.setScheduleName(fileSchedule.getScheduleName());
-        fileScheduleDb.setPlayListsSchedule(fileSchedule.getPlayListsSchedule());
         fileScheduleRepo.save(fileScheduleDb);
     }
 

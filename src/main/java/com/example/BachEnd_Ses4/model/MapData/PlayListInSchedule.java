@@ -1,25 +1,25 @@
-package com.example.BachEnd_Ses4.model.System;
+package com.example.BachEnd_Ses4.model.MapData;
 
-import com.example.BachEnd_Ses4.model.Device.Device;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.*;
-import java.util.List;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 @Entity
 @Setter
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Store {
+public class PlayListInSchedule {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String storeName;
     private String username;
-
+    private String playListName;
+    private String ScheduleName;
 }

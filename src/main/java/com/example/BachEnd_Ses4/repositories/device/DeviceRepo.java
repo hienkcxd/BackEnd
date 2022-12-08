@@ -9,8 +9,8 @@ import java.util.List;
 public interface DeviceRepo extends JpaRepository<Device, Long> {
     public List<Device> findByUsername(String username);
 
-    @Query(value = "select s from Device s where s.storeContain.id = ?1")
-    public List<Device> findByStore(Long id);
+    @Query(value = "select s from Device s where s.username = ?1 and s.storeName = ?2")
+    public List<Device> findByStore(String username, String storeName);
 
     @Query(value = "select s from Device s where s.deviceName = ?1")
     public Device findByDeviceName(String deviceName);

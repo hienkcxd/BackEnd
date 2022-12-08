@@ -46,9 +46,9 @@ public class FileStorageController {
 
     @GetMapping("/fileId={fileId}")
     public FileStorage detailFile(@PathVariable String fileId){
-        FileStorage detailFile = fileStorageService.detail(Long.valueOf(fileId));
-        if(getPrincipal().equals(detailFile.getUserWithFileStorage().getUserName())){
-            return detailFile;
+        FileStorage detailFileCur = fileStorageService.detail(Long.valueOf(fileId));
+        if(getPrincipal().equals(detailFileCur.getUsername())){
+            return detailFileCur;
         }else {
             return (FileStorage) ResponseEntity.badRequest();
         }
@@ -56,14 +56,13 @@ public class FileStorageController {
 
     @PostMapping("")
     public void saveFile(@RequestBody FileStorage fileStorage){
-        fileStorage.setUserWithFileStorage(userService.getUser(getPrincipal()));
         fileStorageService.addFile(fileStorage);
     }
 
     @PutMapping("")
     public void updateFile(@RequestBody FileStorage fileStorage){
         FileStorage fileCheck = fileStorageService.detail(fileStorage.getId());
-        if(getPrincipal().equals(fileCheck.getUserWithFileStorage().getUserName())){
+        if(getPrincipal().equals(fileCheck.getUsername())){
             fileStorageService.update(fileStorage);
         }else {
             log.info("user filestorage controller - line 67: user này không có quyền update file này");
@@ -74,7 +73,7 @@ public class FileStorageController {
     @DeleteMapping("/fileId={fileId}")
     public void deleteFile(@PathVariable String fileId){
         FileStorage detailFile = fileStorageService.detail(Long.valueOf(fileId));
-        if(getPrincipal().equals(detailFile.getUserWithFileStorage().getUserName())){
+        if(getPrincipal().equals(detailFile.getUsername())){
             fileStorageService.delete(Long.valueOf(fileId));
         }else {
             log.info("user filestorage controller - line 79: user này không có quyền delete file naày");

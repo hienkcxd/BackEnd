@@ -42,7 +42,7 @@ public class StoreController {
     @GetMapping("/storeid={id}")
     public Store storeDetail(@PathVariable String id){
         Store detailStore = storeService.detailStore(Long.valueOf(id));
-        if(getPrincipal().equals(detailStore.getUserWithStore().getUserName())){
+        if(getPrincipal().equals(detailStore.getUsername())){
             return detailStore;
         }else {
             log.info("StoreController - live 48: user này không có quyền truy cập cửa hàng này");
@@ -59,7 +59,7 @@ public class StoreController {
     @PutMapping("")
     public void updateStore(@RequestBody Store store){
         Store detailStore = storeService.detailStore(store.getId());
-        if(getPrincipal().equals(detailStore.getUserWithStore().getUserName())){
+        if(getPrincipal().equals(detailStore.getUsername())){
             storeService.update(store);
         }else {
             log.info("StoreController - live 48: user này không có quyền cập nhập cửa hàng này");
@@ -70,7 +70,7 @@ public class StoreController {
     @DeleteMapping("/deleteId={idStore}")
     public void deleteStore(@PathVariable String idStore){
         Store detailStore = storeService.detailStore(Long.valueOf(idStore));
-        if(getPrincipal().equals(detailStore.getUserWithStore().getUserName())){
+        if(getPrincipal().equals(detailStore.getUsername())){
             storeService.delete(Long.valueOf(idStore));
         }else {
             log.info("StoreController - live 48: user này không có quyền xóa cửa hàng này");

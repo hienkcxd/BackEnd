@@ -17,9 +17,10 @@ public class FileLog {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String username;
+    private String deviceName;
     private String storeName;
     private String fileName;
+    private String content;
     private Long startTime;
     private Long endTime;
-
 }

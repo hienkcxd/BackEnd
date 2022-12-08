@@ -7,7 +7,7 @@ import java.util.List;
 public interface DeviceService {
     public void addDevice(Device device);
     public List<Device> findByUsername(String username);
-    public List<Device> findByStore(Long id);
+    public List<Device> findByStore(String username, String storeName);
     public List<Device> findAll();
     public Device detail(Long id);
     public Device detailByDeviceName(String deviceName);

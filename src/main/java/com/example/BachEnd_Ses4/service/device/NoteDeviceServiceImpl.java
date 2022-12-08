@@ -43,7 +43,6 @@ public class NoteDeviceServiceImpl implements NoteDeviceService{
     @Override
     public void updateDeviceNote(DeviceNote deviceNote) {
         DeviceNote deviceNoteDb = noteDeviceRepo.findById(deviceNote.getId()).get();
-        deviceNoteDb.setDescription(deviceNote.getDescription());
         noteDeviceRepo.save(deviceNoteDb);
     }
 

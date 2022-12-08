@@ -23,16 +23,8 @@ public class FileStorage {
     private Long id;
     @Column(unique = true, nullable = false)
     private String fileName;
+    private String username;
     private String fileType;
     private Long createDate;
-    private String resolution;
-    private String times;
     private String urlGoogleDrive;
-
-
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "id_user")
-    private User userWithFileStorage;
-
 }

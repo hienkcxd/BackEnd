@@ -37,7 +37,6 @@ public class DeviceGroupServiceImpl implements DeviceGroupService{
     public void update(DeviceGroup deviceGroup) {
         DeviceGroup deviceGroupDb = detailGroup(deviceGroup.getId());
         deviceGroupDb.setGroupName(deviceGroupDb.getGroupName());
-        deviceGroupDb.setDeviceinGroup(deviceGroup.getDeviceinGroup());
     }
 
     @Override

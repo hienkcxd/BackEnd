@@ -22,15 +22,6 @@ public class DeviceGroup {
     private Long id;
     @Column(unique = true, nullable = false)
     private String groupName;
+    private String deviceName;
     private String username;
-
-    @OneToMany(mappedBy = "groupContain")
-    private List<Device> deviceinGroup;
-
-    @ManyToMany(fetch = LAZY)
-    @JoinTable(name = "schedule_into_device_group",
-            joinColumns = @JoinColumn(name = "device_group_id"),
-            inverseJoinColumns = @JoinColumn(name = "schedule_id")
-    )
-    private Collection<FileSchedule> SchedulesIntoDeviceGroup = new ArrayList<>();
 }

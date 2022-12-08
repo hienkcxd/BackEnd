@@ -18,16 +18,8 @@ public class UserLog {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String username;
     private String description;
     private Long createDate;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "id_user")
-    private User userWithLog;
-
-    public UserLog(String description, long createDate) {
-        this.description = description;
-        this.createDate = createDate;
-    }
 }

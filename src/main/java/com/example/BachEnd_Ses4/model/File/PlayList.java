@@ -22,16 +22,5 @@ public class PlayList {
     @Column(unique = true, nullable = false)
     private String playlistName;
     private String username;
-    private String playlistType;
-    //quan hệ nhiều nhiều với bảng file storage.
-    @ManyToMany(fetch = EAGER)
-    @JsonIgnore
-    @JoinTable(name = "file_into_playlist",
-            joinColumns = @JoinColumn(name = "playlist_id"), inverseJoinColumns = @JoinColumn(name = "file_id"))
-    private Collection<FileStorage> fileStorages = new ArrayList<>();
-
-    //quan hệ nhiều nhiều với bảng file schedule
-//    @ManyToMany(mappedBy = "playListsSchedule")
-//    private Collection<FileSchedule> fileSchedules = new ArrayList<>();
-
+    private String fileName;
 }

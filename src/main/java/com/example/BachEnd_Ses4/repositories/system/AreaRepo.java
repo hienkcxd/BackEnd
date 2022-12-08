@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface AreaRepo extends JpaRepository<Area, Long> {
-    @Query(value = "select u from Area u where u.userWithArea.userName = ?1")
+    @Query(value = "select u from Area u where u.username = ?1")
     public List<Area> findByUsername(String username);
 }

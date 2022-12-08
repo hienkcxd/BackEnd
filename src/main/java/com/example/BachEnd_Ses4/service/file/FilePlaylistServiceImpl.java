@@ -36,9 +36,7 @@ public class FilePlaylistServiceImpl implements FilePlaylistService {
     public void update(PlayList playList) {
         PlayList playList1Db = detail(playList.getId());
         playList1Db.setId(playList.getId());
-        playList1Db.setFileStorages(playList.getFileStorages());
         playList1Db.setPlaylistName(playList.getPlaylistName());
-        playList1Db.setPlaylistType(playList.getPlaylistType());
         filePlaylistRepo.save(playList1Db);
     }
 

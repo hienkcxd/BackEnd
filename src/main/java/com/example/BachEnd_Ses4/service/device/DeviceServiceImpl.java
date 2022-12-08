@@ -28,8 +28,8 @@ public class DeviceServiceImpl implements DeviceService{
     }
 
     @Override
-    public List<Device> findByStore(Long id) {
-        return deviceRepo.findByStore(id);
+    public List<Device> findByStore(String username, String storeName) {
+        return deviceRepo.findByStore(username, storeName);
     }
 
     @Override
@@ -51,21 +51,18 @@ public class DeviceServiceImpl implements DeviceService{
     public void updateDesDevice(Device device) {
         Device deviceDb = detail(device.getId());
         deviceDb.setDeviceName(device.getDeviceName());
-        deviceDb.setActiveLocation(device.getActiveLocation());
         deviceRepo.save(deviceDb);
     }
 
     @Override
     public void updateActiveDevice(Device device) {
         Device deviceDb = detail(device.getId());
-        deviceDb.setActive(device.isActive());
         deviceRepo.save(deviceDb);
     }
 
     @Override
     public void updateSchedule(Device device) {
         Device deviceDb = detail(device.getId());
-        deviceDb.setFileSchedulesDevice(device.getFileSchedulesDevice());
         deviceRepo.save(deviceDb);
     }
 

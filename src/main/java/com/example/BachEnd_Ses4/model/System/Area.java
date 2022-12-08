@@ -17,14 +17,7 @@ public class Area {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String username;
     private String areaName;
 
-    @ManyToOne
-    @JsonIgnore
-    @JoinColumn(name = "id_user")
-    private User userWithArea;
-
-    public Area(String areaName) {
-        this.areaName = areaName;
-    }
 }

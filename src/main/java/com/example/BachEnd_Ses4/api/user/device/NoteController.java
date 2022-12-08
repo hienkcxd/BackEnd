@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user/note")
+@RequestMapping("/api/user/device-note")
 @RequiredArgsConstructor
 @Slf4j
 @CrossOrigin("http://localhost:4200")
@@ -46,7 +46,7 @@ public class NoteController {
     @GetMapping("/{deviceNoteId}")
     public DeviceNote detailDeviceNote(@PathVariable String deviceNoteId){
         DeviceNote deviceNoteCur = deviceService.detail(Long.valueOf(deviceNoteId));
-        if(getPrincipal().equals(deviceNoteCur.getUserName())){
+        if(getPrincipal().equals(deviceNoteCur.getUsername())){
             return deviceNoteCur;
         }else {
             return (DeviceNote) ResponseEntity.badRequest();
@@ -61,7 +61,7 @@ public class NoteController {
     @PutMapping("/update-devicenote")
     public void updDesDevice(@RequestBody DeviceNote DeviceNote){
         DeviceNote deviceCur = deviceService.detail(DeviceNote.getId());
-        if (getPrincipal().equals(deviceCur.getUserName())){
+        if (getPrincipal().equals(deviceCur.getUsername())){
             deviceService.updateDeviceNote(DeviceNote);
         }else {
             log.info("device controller - line 65: user khong co quyen update ten va khu vuwjc hoat dong thiet bi nay");
@@ -73,7 +73,7 @@ public class NoteController {
     @DeleteMapping("/{deleteId}")
     public void deleteDevice(@PathVariable String deleteId){
         DeviceNote deviceCur = deviceService.detail(Long.valueOf(deleteId));
-        if (getPrincipal().equals(deviceCur.getUserName())){
+        if (getPrincipal().equals(deviceCur.getUsername())){
             deviceService.deleteDeviceNote(Long.valueOf(deleteId));
         }else {
             log.info("device controller - line 95: user khong co quyen xoa device note nay");

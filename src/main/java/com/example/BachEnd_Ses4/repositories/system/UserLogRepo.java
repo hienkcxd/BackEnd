@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface UserLogRepo extends JpaRepository<UserLog, Long> {
-    @Query(value = "select u from UserLog u where u.userWithLog.userName = ?1")
+    @Query(value = "select u from UserLog u where u.username = ?1")
     public List<UserLog> findUserLogByUsername(String username);
 }

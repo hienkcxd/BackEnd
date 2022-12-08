@@ -23,18 +23,8 @@ public class FileSchedule {
     private Long id;
     @Column(unique = true, nullable = false)
     private String scheduleName;
+    private String playListName;
     private String userName;
-    private String scheduleYpe;
     private Long startSchedule;
     private Long endSchedule;
-
-    //quan hệ nhiều nhiều với bản playlist
-    @ManyToMany(fetch = EAGER)
-    @JoinTable(name = "playlist_into_schedule",
-            joinColumns = @JoinColumn(name = "schedule_id"), inverseJoinColumns = @JoinColumn(name = "playlist_id"))
-    private Collection<PlayList> playListsSchedule = new ArrayList<>();
-
-//    @ManyToMany(mappedBy = "fileSchedulesDevice")
-//    private Collection<Device> devices = new ArrayList<>();
-
 }
