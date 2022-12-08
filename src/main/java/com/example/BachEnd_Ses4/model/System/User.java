@@ -22,7 +22,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long deviceActive;
+    private Long deviceActives;
     private String name;
 
     @Column(unique = true, nullable = false)
