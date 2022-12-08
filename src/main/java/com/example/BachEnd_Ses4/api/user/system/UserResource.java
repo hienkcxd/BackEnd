@@ -50,7 +50,7 @@ public class UserResource {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     public ResponseEntity<Map<Integer,String>> checkLogin(HttpServletRequest request){
         Map<Integer,String> status = new HashMap<Integer,String>();
-        status.put(1, "ok");
+        status.put(1, "2689367B205C16CE32ED4200942B8B8B1E262DFC70D9BC9FBC77C49699A4F1DF");
         return ResponseEntity.ok(status);
     }
 
