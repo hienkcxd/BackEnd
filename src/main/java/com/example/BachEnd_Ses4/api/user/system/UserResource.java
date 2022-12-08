@@ -1,21 +1,18 @@
-package com.example.BachEnd_Ses4.api;
+package com.example.BachEnd_Ses4.api.user.system;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
 import com.example.BachEnd_Ses4.UTIL.ConverterToken;
-import com.example.BachEnd_Ses4.model.Role;
-import com.example.BachEnd_Ses4.model.User;
-import com.example.BachEnd_Ses4.service.UserService;
+import com.example.BachEnd_Ses4.model.System.Role;
+import com.example.BachEnd_Ses4.model.System.User;
+import com.example.BachEnd_Ses4.service.system.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.query.Procedure;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -49,6 +46,13 @@ public class UserResource {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
+    @GetMapping("/login-token")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    public ResponseEntity<Map<Integer,String>> checkLogin(HttpServletRequest request){
+        Map<Integer,String> status = new HashMap<Integer,String>();
+        status.put(1, "2689367B205C16CE32ED4200942B8B8B1E262DFC70D9BC9FBC77C49699A4F1DF");
+        return ResponseEntity.ok(status);
+    }
 
     @GetMapping("/admin")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
@@ -103,7 +107,7 @@ public class UserResource {
                 User user = userService.getUser(username);
                 String access_token = JWT.create()
                         .withSubject(user.getUserName())
-                        .withExpiresAt(new Date(System.currentTimeMillis() + 10*60*1000))
+                        .withExpiresAt(new Date(System.currentTimeMillis() + 7+24*60*60*1000))
                         .withIssuer(request.getRequestURL().toString())
                         .withClaim("roles", user.getRoles().stream().map(Role::getName).collect(Collectors.toList()))
                         .sign(algorithm);

@@ -1,7 +1,7 @@
-package com.example.BachEnd_Ses4.service;
+package com.example.BachEnd_Ses4.service.system;
 
-import com.example.BachEnd_Ses4.model.Role;
-import com.example.BachEnd_Ses4.model.User;
+import com.example.BachEnd_Ses4.model.System.Role;
+import com.example.BachEnd_Ses4.model.System.User;
 
 import java.util.List;
 

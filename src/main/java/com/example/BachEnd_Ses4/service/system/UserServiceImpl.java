@@ -1,11 +1,12 @@
-package com.example.BachEnd_Ses4.service;
+package com.example.BachEnd_Ses4.service.system;
 
-import com.example.BachEnd_Ses4.model.Role;
-import com.example.BachEnd_Ses4.model.User;
-import com.example.BachEnd_Ses4.repositories.RoleRepo;
-import com.example.BachEnd_Ses4.repositories.UserRepo;
+import com.example.BachEnd_Ses4.model.System.Role;
+import com.example.BachEnd_Ses4.model.System.User;
+import com.example.BachEnd_Ses4.repositories.system.RoleRepo;
+import com.example.BachEnd_Ses4.repositories.system.UserRepo;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,6 +15,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -21,8 +23,8 @@ import java.util.List;
 @Service @RequiredArgsConstructor @Transactional @Slf4j
 public class UserServiceImpl implements UserService, UserDetailsService {
     private final UserRepo userRepo;
-    private final RoleRepo roleRepo;
-    private final PasswordEncoder passwordEncoder;
+    private final  RoleRepo roleRepo;
+    private final  PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional(readOnly = true)

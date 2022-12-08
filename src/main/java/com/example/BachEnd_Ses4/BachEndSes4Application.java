@@ -1,8 +1,8 @@
 package com.example.BachEnd_Ses4;
 
-import com.example.BachEnd_Ses4.model.Role;
-import com.example.BachEnd_Ses4.model.User;
-import com.example.BachEnd_Ses4.service.UserService;
+import com.example.BachEnd_Ses4.model.System.Role;
+import com.example.BachEnd_Ses4.model.System.User;
+import com.example.BachEnd_Ses4.service.system.UserService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -23,16 +23,16 @@ public class BachEndSes4Application {
 	PasswordEncoder passwordEncoder(){
 		return new BCryptPasswordEncoder();
 	}
-//	@Bean
+	@Bean
 	CommandLineRunner run(UserService userService){
 		return args -> {
 			userService.saveRole(new Role(null, "ROLE_USER"));
 			userService.saveRole(new Role(null, "ROLE_ADMIN"));
 
-			userService.saveUser(new User(null, "Hien Dang", "Hien", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Ly Truc", "Ly", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Coop", "coop", "123", new ArrayList<>()));
-			userService.saveUser(new User(null, "Lotte", "lotte", "123", new ArrayList<>()));
+			userService.saveUser(new User(null, "Hien Dang", "hien", "email.admin1@gmail.com","0981815414","123", new ArrayList<>()));
+			userService.saveUser(new User(null, "Ly Truc", "ly", "email.admin2@gmail.com","341232123","123", new ArrayList<>()));
+			userService.saveUser(new User(null, "Coop", "coop", "email.coop@gmail.com","5542221321","123", new ArrayList<>()));
+			userService.saveUser(new User(null, "Lotte", "lotte", "email.lotte@gmail.com","9928172321","123", new ArrayList<>()));
 
 			userService.addRoleToUser("Hien", "ROLE_ADMIN");
 			userService.addRoleToUser("Ly", "ROLE_ADMIN");
