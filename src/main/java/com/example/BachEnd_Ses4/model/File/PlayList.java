@@ -22,5 +22,4 @@ public class PlayList {
     @Column(unique = true, nullable = false)
     private String playlistName;
     private String username;
-    private String fileName;
 }

@@ -23,7 +23,6 @@ public class FileSchedule {
     private Long id;
     @Column(unique = true, nullable = false)
     private String scheduleName;
-    private String playListName;
     private String userName;
     private Long startSchedule;
     private Long endSchedule;
