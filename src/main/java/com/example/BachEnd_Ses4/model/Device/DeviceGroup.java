@@ -22,6 +22,5 @@ public class DeviceGroup {
     private Long id;
     @Column(unique = true, nullable = false)
     private String groupName;
-    private String deviceName;
     private String username;
 }

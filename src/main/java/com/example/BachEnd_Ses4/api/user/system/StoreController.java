@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/user/store")
 @RequiredArgsConstructor
 @Slf4j
-@PreAuthorize("hasAnyAuthority('ROLE_USER')")
+//@PreAuthorize("hasAnyAuthority('ROLE_USER')")
 public class StoreController {
     @Autowired
     private StoreService storeService;

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/user")
 @RequiredArgsConstructor
 @Slf4j
-@PreAuthorize("hasAnyAuthority('ROLE_USER')")
+//@PreAuthorize("hasAnyAuthority('ROLE_USER')")
 public class UserController {
 
     private String getPrincipal(){

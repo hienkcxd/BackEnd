@@ -20,7 +20,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Slf4j
 @CrossOrigin("http://localhost:4200")
-@PreAuthorize("hasAnyAuthority('ROLE_USER')")
+//@PreAuthorize("hasAnyAuthority('ROLE_USER')")
 public class DeviceLogController {
     @Autowired
     private DeviceLogService deviceLogService;

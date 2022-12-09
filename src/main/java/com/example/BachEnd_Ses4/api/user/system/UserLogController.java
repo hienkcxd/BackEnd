@@ -17,7 +17,7 @@ import java.util.List;
 @RequestMapping("/api/user/user-log")
 @RequiredArgsConstructor
 @Slf4j
-@PreAuthorize("hasAnyAuthority('ROLE_USER')")
+//@PreAuthorize("hasAnyAuthority('ROLE_USER')")
 public class UserLogController {
     @Autowired
     private UserLogService userLogService;
