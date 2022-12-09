@@ -6,6 +6,8 @@ import com.example.BachEnd_Ses4.model.MapData.FileInPlayList;
 import com.example.BachEnd_Ses4.service.map.FileInPlayListService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -20,9 +22,22 @@ public class FileInPlayListController {
     @Autowired
     private FileInPlayListConverter converter;
 
+    private String getPrincipal(){
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+
+        return userName;
+    }
+
     @GetMapping("")
-    public List<FileInPlayListDTO> findAll(){
-        List<FileInPlayList> list = fileInPlayListService.findAll();
+    public List<FileInPlayListDTO> findByUsername(){
+        List<FileInPlayList> list = fileInPlayListService.findByUsername(getPrincipal());
         return converter.ListEntityToDTO(list);
     }
 
