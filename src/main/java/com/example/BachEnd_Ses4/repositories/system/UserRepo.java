@@ -4,6 +4,6 @@ import com.example.BachEnd_Ses4.model.System.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface UserRepo extends JpaRepository<User, Long> {
-    User findByUserName(String userName);
+    public User findByUserName(String userName);
 
 }

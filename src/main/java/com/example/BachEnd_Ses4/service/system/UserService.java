@@ -6,11 +6,11 @@ import com.example.BachEnd_Ses4.model.System.User;
 import java.util.List;
 
 public interface UserService {
-    User saveUser(User user);
-    Role saveRole(Role role);
-    void addRoleToUser(String userName, String roleName);
-    User getUser(String userName);
-    List<User> getUsers();
+    public User saveUser(User user);
+    public Role saveRole(Role role);
+    public void addRoleToUser(String userName, String roleName);
+    public User getUser(String userName);
+    public List<User> getUsers();
 
-    List<Role> getRole();
+    public List<Role> getRole();
 }

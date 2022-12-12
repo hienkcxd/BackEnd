@@ -4,7 +4,9 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.JWTVerifier;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.interfaces.DecodedJWT;
+import com.example.BachEnd_Ses4.DTO.SystemDTO.UserDetailDTO;
 import com.example.BachEnd_Ses4.converter.ConverterToken;
+import com.example.BachEnd_Ses4.converter.SystemConverter.UserDetailConverter;
 import com.example.BachEnd_Ses4.model.System.Role;
 import com.example.BachEnd_Ses4.model.System.User;
 import com.example.BachEnd_Ses4.service.system.UserService;
@@ -15,6 +17,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -36,10 +40,24 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @Slf4j
 public class UserResource {
     @Autowired
-    private final UserService userService;
-
+    private UserService userService;
     @Autowired
     private ConverterToken converterToken;
+    @Autowired
+    private UserDetailConverter converter;
+
+    private String getPrincipal(){
+        String userName = null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            userName = ((UserDetails)principal).getUsername();
+        } else {
+            userName = principal.toString();
+        }
+
+        return userName;
+    }
     @GetMapping("/admin/list-user")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<User>> getUsers(){
@@ -54,7 +72,7 @@ public class UserResource {
         return ResponseEntity.ok(status);
     }
 
-    @GetMapping("/admin")
+    @GetMapping("/user-detail")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<User> getUsersByAdminName(HttpServletRequest request){
         String username = converterToken.convertTokenToUserName(request);
@@ -70,6 +88,13 @@ public class UserResource {
         return ResponseEntity.ok().body(userService.getUser(username));
     }
 
+    @GetMapping("/user/user-detail")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    public UserDetailDTO getUsersByAdminNameDTO(HttpServletRequest request){
+        String username = converterToken.convertTokenToUserName(request);
+        log.info("user resource convertTokenToRole: " + converterToken.convertTokenToRole(request));
+        return converter.entityToDTO(userService.getUser(getPrincipal()));
+    }
 
     @PostMapping("/user/save")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
