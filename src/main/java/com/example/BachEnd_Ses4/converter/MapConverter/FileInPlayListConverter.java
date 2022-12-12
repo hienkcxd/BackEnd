@@ -23,8 +23,8 @@ public class FileInPlayListConverter {
         return dto;
     }
 
-    public List<FileInPlayListDTO> ListEntityToDTO(List<FileInPlayList> fileInPlayList){
-        return fileInPlayList.stream().map(x ->entityToDTO(x)).collect(Collectors.toList());
+    public List<FileInPlayListDTO> ListEntityToDTO(List<FileInPlayList> ent){
+        return ent.stream().map(x ->entityToDTO(x)).collect(Collectors.toList());
     }
 
     public FileInPlayList dtoToEntity(FileInPlayListDTO dto){

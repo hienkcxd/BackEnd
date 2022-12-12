@@ -21,5 +21,5 @@ public class PlayListInSchedule {
     private Long id;
     private String username;
     private String playListName;
-    private String ScheduleName;
+    private String scheduleName;
 }
