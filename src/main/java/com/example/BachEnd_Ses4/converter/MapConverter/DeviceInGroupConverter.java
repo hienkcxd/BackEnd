@@ -2,10 +2,6 @@ package com.example.BachEnd_Ses4.converter.MapConverter;
 
 import com.example.BachEnd_Ses4.DTO.MapDTO.DeviceInGroupDTO;
 import com.example.BachEnd_Ses4.model.MapData.DeviceInGroup;
-import com.example.BachEnd_Ses4.model.MapData.PlayListInSchedule;
-import com.example.BachEnd_Ses4.service.map.DeviceInGroupService;
-import com.example.BachEnd_Ses4.service.map.PlayListInScheduleService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
@@ -16,19 +12,22 @@ import java.util.stream.Collectors;
 public class DeviceInGroupConverter {
     public DeviceInGroupDTO entityToDTO(DeviceInGroup deviceInGroup){
         DeviceInGroupDTO dto = new DeviceInGroupDTO();
-        String[] arrDevice = null;
-        String[] arrPlayList = null;
-        arrDevice=deviceInGroup.getDeviceName().substring(1, deviceInGroup.getDeviceName().length()-1).split(", ");
-        String playListName = deviceInGroup.getPlayListName();
-        arrPlayList=playListName.substring(1, playListName.length()-1).split(", ");
+        String[] arrFileName = null;
+        String fileName = deviceInGroup.getFileName();
+        arrFileName=fileName.substring(1, fileName.length()-1).split(", ");
+
+        String[] arrDeviceName = null;
+        String deviceName = deviceInGroup.getDeviceName();
+        arrDeviceName=deviceName.substring(1, deviceName.length()-1).split(", ");
+
         dto.setId(deviceInGroup.getId());
         dto.setUsername(deviceInGroup.getUsername());
         dto.setGroupName(deviceInGroup.getGroupName());
-        dto.setScheduleName(deviceInGroup.getScheduleName());
-        dto.setDeviceName(arrDevice);
-        dto.setPlayListName(arrPlayList);
+        dto.setFileName(arrFileName);
+        dto.setDeviceName(arrDeviceName);
         return dto;
     }
+
 
     public List<DeviceInGroupDTO> ListEntityToDTO(List<DeviceInGroup> deviceInGroupList){
         return deviceInGroupList.stream().map(x->entityToDTO(x)).collect(Collectors.toList());
@@ -37,16 +36,14 @@ public class DeviceInGroupConverter {
     public DeviceInGroup dtoToEntity(DeviceInGroupDTO dto){
         DeviceInGroup ent = new DeviceInGroup();
         String deviceName = new String();
-        String playListName = new String();
         String fileName = new String();
+        fileName = Arrays.toString(dto.getFileName());
         deviceName = Arrays.toString(dto.getDeviceName());
-        playListName = Arrays.toString(dto.getPlayListName());
         ent.setId(dto.getId());
         ent.setUsername(dto.getUsername());
         ent.setGroupName(dto.getGroupName());
-        ent.setScheduleName(dto.getScheduleName());
         ent.setDeviceName(deviceName);
-        ent.setPlayListName(playListName);
+        ent.setFileName(fileName);
         return ent;
     }
 

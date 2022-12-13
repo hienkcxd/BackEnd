@@ -38,6 +38,11 @@ public class DeviceServiceImpl implements DeviceService{
     }
 
     @Override
+    public List<Device> deviceNoGroup(String username) {
+        return deviceRepo.deviceNoGroup(username);
+    }
+
+    @Override
     public Device detail(Long id) {
         return deviceRepo.findById(id).get();
     }
@@ -51,6 +56,13 @@ public class DeviceServiceImpl implements DeviceService{
     public void updateDesDevice(Device device) {
         Device deviceDb = detail(device.getId());
         deviceDb.setDeviceName(device.getDeviceName());
+        deviceRepo.save(deviceDb);
+    }
+
+    @Override
+    public void addGroupToDevice(Device device) {
+        Device deviceDb = detail(device.getId());
+        deviceDb.setGroupName(device.getGroupName());
         deviceRepo.save(deviceDb);
     }
 

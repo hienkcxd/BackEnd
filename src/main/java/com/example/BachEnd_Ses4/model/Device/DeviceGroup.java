@@ -1,15 +1,9 @@
 package com.example.BachEnd_Ses4.model.Device;
 
-import com.example.BachEnd_Ses4.model.File.FileSchedule;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
-import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Setter

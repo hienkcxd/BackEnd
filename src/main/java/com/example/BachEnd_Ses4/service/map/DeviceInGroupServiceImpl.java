@@ -19,6 +19,7 @@ public class DeviceInGroupServiceImpl implements DeviceInGroupService{
         return deviceInGroupRepo.findAll();
     }
 
+
     @Override
     public List<DeviceInGroup> findByUsername(String username) {
         return deviceInGroupRepo.findByUsername(username);
@@ -35,6 +36,11 @@ public class DeviceInGroupServiceImpl implements DeviceInGroupService{
     }
 
     @Override
+    public DeviceInGroup detailByGroupName(String groupName) {
+        return deviceInGroupRepo.findByGroupName(groupName);
+    }
+
+    @Override
     public void delete(Long Id) {
         deviceInGroupRepo.delete(detail(Id));
     }
@@ -44,7 +50,7 @@ public class DeviceInGroupServiceImpl implements DeviceInGroupService{
         DeviceInGroup deviceInGroupDb = detail(deviceInGroup.getId());
         deviceInGroupDb.setId(deviceInGroup.getId());
         deviceInGroupDb.setGroupName(deviceInGroup.getGroupName());
-        deviceInGroupDb.setScheduleName(deviceInGroup.getScheduleName());
+        deviceInGroupDb.setFileName(deviceInGroup.getFileName());
         deviceInGroupDb.setDeviceName(deviceInGroup.getDeviceName());
         deviceInGroupRepo.save(deviceInGroupDb);
     }

@@ -9,6 +9,8 @@ import java.util.List;
 public interface DeviceRepo extends JpaRepository<Device, Long> {
     public List<Device> findByUsername(String username);
 
+    @Query(value = "select s from Device s where s.groupName= '' and s.username = ?1")
+    public List<Device> deviceNoGroup(String username);
     @Query(value = "select s from Device s where s.username = ?1 and s.storeName = ?2")
     public List<Device> findByStore(String username, String storeName);
 

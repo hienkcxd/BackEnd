@@ -21,7 +21,6 @@ public class DeviceInGroup {
     private Long id;
     private String username;
     private String groupName;
-    private String scheduleName;
     private String deviceName;
-    private String playListName;
+    private String fileName;
 }

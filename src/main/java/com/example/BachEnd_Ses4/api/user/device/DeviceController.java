@@ -42,6 +42,11 @@ public class DeviceController {
         return deviceService.findByUsername(getPrincipal());
     }
 
+    @GetMapping("/device-no-group")
+    public List<Device> deviceNoGroup(){
+        return deviceService.deviceNoGroup(getPrincipal());
+    }
+
     @GetMapping("/{deviceId}")
     public Device detailDevice(@PathVariable String deviceId){
         Device deviceCur = deviceService.detail(Long.valueOf(deviceId));

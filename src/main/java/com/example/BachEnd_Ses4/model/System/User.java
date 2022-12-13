@@ -1,8 +1,5 @@
 package com.example.BachEnd_Ses4.model.System;
 
-import com.example.BachEnd_Ses4.model.File.FileSchedule;
-import com.example.BachEnd_Ses4.model.File.FileStorage;
-import com.example.BachEnd_Ses4.model.File.PlayList;
 import lombok.*;
 
 import javax.persistence.*;
@@ -11,7 +8,6 @@ import java.util.Collection;
 import java.util.List;
 
 import static javax.persistence.FetchType.EAGER;
-import static javax.persistence.FetchType.LAZY;
 
 @Entity
 @Setter
