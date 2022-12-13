@@ -20,7 +20,8 @@ public class DeviceInGroup {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
-    private String deviceName;
     private String groupName;
     private String scheduleName;
+    private String deviceName;
+    private String playListName;
 }

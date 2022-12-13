@@ -10,4 +10,7 @@ public interface PlayListInScheduleRepo extends JpaRepository<PlayListInSchedule
     public List<PlayListInSchedule> findByUsername(String username);
     @Query(value = "select s from PlayListInSchedule s where s.scheduleName=?1")
     public List<PlayListInSchedule> findByScheduleName(String scheduleName);
+
+    @Query(value = "select s from PlayListInSchedule s where s.scheduleName=?1")
+    public PlayListInSchedule detailByScheduleName(String scheduleName);
 }

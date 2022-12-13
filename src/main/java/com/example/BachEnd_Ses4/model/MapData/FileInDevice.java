@@ -15,11 +15,11 @@ import javax.persistence.Id;
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
-public class ScheduleInDevice {
+public class FileInDevice {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String username;
     private String deviceName;
-    private String ScheduleName;
+    private String fileName;
 }

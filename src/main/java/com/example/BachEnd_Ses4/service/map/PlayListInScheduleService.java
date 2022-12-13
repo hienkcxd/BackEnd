@@ -10,4 +10,5 @@ public interface PlayListInScheduleService {
     public List<PlayListInSchedule> findByScheduleName(String scheduleName);
     public void addPlayListInSchedule(PlayListInSchedule playListInSchedule);
     public PlayListInSchedule detail(Long id);
+    public PlayListInSchedule detailByScheduleName(String scheduleName);
 }

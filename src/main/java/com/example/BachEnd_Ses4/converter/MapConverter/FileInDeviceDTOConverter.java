@@ -8,7 +8,6 @@ import org.springframework.stereotype.Component;
 public class FileInDeviceDTOConverter {
     public FileInDeviceDTO entityToiDTO(DeviceInGroup deviceInGroup){
         FileInDeviceDTO dto = new FileInDeviceDTO();
-
         return dto;
     }
 }

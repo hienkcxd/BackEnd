@@ -37,4 +37,9 @@ public class PlayListInScheduleServiceImpl implements PlayListInScheduleService{
     public PlayListInSchedule detail(Long id) {
         return playListInScheduleRepo.findById(id).get();
     }
+
+    @Override
+    public PlayListInSchedule detailByScheduleName(String scheduleName) {
+        return playListInScheduleRepo.detailByScheduleName(scheduleName);
+    }
 }

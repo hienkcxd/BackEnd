@@ -4,6 +4,7 @@ import com.example.BachEnd_Ses4.DTO.MapDTO.DeviceInGroupDTO;
 import com.example.BachEnd_Ses4.converter.MapConverter.DeviceInGroupConverter;
 import com.example.BachEnd_Ses4.model.MapData.DeviceInGroup;
 import com.example.BachEnd_Ses4.service.map.DeviceInGroupService;
+import com.example.BachEnd_Ses4.service.map.PlayListInScheduleService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -18,6 +19,8 @@ import java.util.List;
 public class DeviceInGroupController {
     @Autowired
     private DeviceInGroupService deviceInGroupService;
+    @Autowired
+    private PlayListInScheduleService playListInScheduleService;
     @Autowired
     private DeviceInGroupConverter converter;
     private String getPrincipal(){
@@ -40,10 +43,15 @@ public class DeviceInGroupController {
     @GetMapping("/{idGroup}")
     public DeviceInGroupDTO findById(@PathVariable String idGroup){
         DeviceInGroup ent = deviceInGroupService.detail(Long.valueOf(idGroup));
-        return converter.entityToDTO(ent);
+        DeviceInGroupDTO dto = converter.entityToDTO(ent);
+        return dto;
     }
     @PostMapping("")
     public DeviceInGroupDTO saveDeviceInGroup(@RequestBody DeviceInGroupDTO dto){
+        String playListName = playListInScheduleService.detailByScheduleName(dto.getScheduleName()).getPlayListName();
+        String[] arrPlayList = null;
+        arrPlayList=playListName.substring(1, playListName.length()-1).split(", ");
+        dto.setPlayListName(arrPlayList);
         DeviceInGroup ent = converter.dtoToEntity(dto);
         deviceInGroupService.addDeviceInGroup(ent);
         return dto;
