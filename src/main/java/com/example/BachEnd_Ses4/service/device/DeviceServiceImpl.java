@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +21,20 @@ public class DeviceServiceImpl implements DeviceService{
     @Override
     public void addDevice(Device device) {
         deviceRepo.save(device);
+    }
+
+    @Override
+    public String[] deviceInGroup(String groupName) {
+        List<Device> deviceList = deviceRepo.findByGroupName(groupName);
+        List<String> deviceName = new ArrayList<>();
+        String[] arr = new String[deviceList.size()];
+        for (Device d :deviceList) {
+            deviceName.add(d.getDeviceName());
+        }
+        for (int i = 0; i < deviceName.size(); i++) {
+            arr[i] = deviceName.get(i);
+        }
+        return arr;
     }
 
     @Override

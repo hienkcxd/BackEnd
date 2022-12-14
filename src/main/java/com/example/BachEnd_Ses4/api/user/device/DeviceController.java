@@ -73,6 +73,10 @@ public class DeviceController {
             return (Device) ResponseEntity.badRequest();
         }
     }
+    @GetMapping("/group={groupName}")
+    public String[] deviceName(@PathVariable String groupName){
+        return deviceService.deviceInGroup(groupName);
+    }
 
     @PostMapping("")
     public DeviceDTO addDevice(@RequestBody DeviceDTO dto){
