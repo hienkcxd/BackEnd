@@ -1,7 +1,11 @@
 package com.example.BachEnd_Ses4.api.user.device;
 
+import com.example.BachEnd_Ses4.DTO.Device.DeviceDTO;
+import com.example.BachEnd_Ses4.converter.Device.DeviceDTOConverter;
 import com.example.BachEnd_Ses4.model.Device.Device;
+import com.example.BachEnd_Ses4.model.File.FileStorage;
 import com.example.BachEnd_Ses4.service.device.DeviceService;
+import com.example.BachEnd_Ses4.service.file.FileStorageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,11 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
 
+    @Autowired
+    private FileStorageService fileStorageService;
+
+    @Autowired
+    private DeviceDTOConverter converter;
 
     private String getPrincipal(){
         String userName = null;
@@ -42,6 +51,14 @@ public class DeviceController {
         return deviceService.findByUsername(getPrincipal());
     }
 
+    @GetMapping("/dto={id}")
+    public DeviceDTO findByUsernameV2(@PathVariable String id){
+        Device ent =  deviceService.detail(Long.valueOf(id));
+        DeviceDTO dto = converter.entityToDTO(ent);
+        dto.setFileStorage(fileStorageService.findByFileName(dto.getFileName()));
+        return dto;
+    }
+
     @GetMapping("/device-no-group")
     public List<Device> deviceNoGroup(){
         return deviceService.deviceNoGroup(getPrincipal());
@@ -58,8 +75,13 @@ public class DeviceController {
     }
 
     @PostMapping("")
-    public void addDevice(@RequestBody Device device){
+    public DeviceDTO addDevice(@RequestBody DeviceDTO dto){
+        Device device = converter.dtoToEntity(dto);
+        if(device.getGroupName()==null){
+            device.setGroupName("No_Group");
+        }
         deviceService.addDevice(device);
+        return dto;
     }
 
     @PutMapping("/name-device")

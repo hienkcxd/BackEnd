@@ -7,5 +7,6 @@ import java.util.List;
 public interface FileLogService {
     public void addFileLog(FileLog fileLog);
     public List<FileLog> findAll();
+
     public List<FileLog> findByUsername(String username);
 }

@@ -23,4 +23,5 @@ public class Device {
     private String storeName;
     private String groupName;
     private String area;
+    private String fileName;
 }

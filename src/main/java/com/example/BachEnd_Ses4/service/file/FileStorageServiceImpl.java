@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -33,6 +34,16 @@ public class FileStorageServiceImpl implements FileStorageService{
     @Override
     public List<FileStorage> findByUsername(String username) {
         return fileStorageRepo.findByUsername(username);
+    }
+
+    @Override
+    public List<FileStorage> findByFileName(String[] fileName) {
+        List<FileStorage> listFileName = new ArrayList<>();
+        for (String f: fileName) {
+            FileStorage fileStorage =  fileStorageRepo.findByFileName(f);
+            listFileName.add(fileStorage);
+        }
+        return listFileName;
     }
 
     @Override
