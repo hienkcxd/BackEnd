@@ -19,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -45,6 +46,7 @@ public class UserResource {
     private ConverterToken converterToken;
     @Autowired
     private UserDetailConverter converter;
+    private final PasswordEncoder passwordEncoder;
 
     private String getPrincipal(){
         String userName = null;
@@ -101,6 +103,27 @@ public class UserResource {
     public ResponseEntity<User> saveUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
+    }
+
+    @PostMapping("/change-password")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    public User changePassword(HttpServletRequest request){
+        String username = converterToken.convertTokenToUserName(request);
+        log.info("user resource convertTokenToRole: " + converterToken.convertTokenToRole(request));
+        User user = userService.getUser(username);
+        String curPassword =  request.getParameter("current-password").toString();
+        String newPassword =  request.getParameter("new-password").toString();
+        log.info("dữ lieu nhan ve:" + curPassword + "password moi " + newPassword);
+        log.info("pass hiện taại:" +  user.getPassword());
+        log.info("pass hiện taại tu client:" +  passwordEncoder.encode(curPassword));
+        if(passwordEncoder.encode(curPassword).equals(user.getPassword()) && !newPassword.equals("")){
+            user.setId(user.getId());
+            user.setPassword(newPassword);
+            userService.saveUser(user);
+            return user;
+        }else {
+            return (User) ResponseEntity.badRequest();
+        }
     }
 
 

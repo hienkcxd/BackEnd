@@ -10,4 +10,6 @@ public class UserDetailDTO {
     private String phone;
     private Long deviceQuantity;
     private Long StoreQuantity;
+    private String curPassword;
+    private String newPassword;
 }
