@@ -38,6 +38,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:4200/")
 @Slf4j
 public class UserResource {
     @Autowired
@@ -109,14 +110,10 @@ public class UserResource {
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     public User changePassword(HttpServletRequest request){
         String username = converterToken.convertTokenToUserName(request);
-        log.info("user resource convertTokenToRole: " + converterToken.convertTokenToRole(request));
         User user = userService.getUser(username);
-        String curPassword =  request.getParameter("current-password").toString();
-        String newPassword =  request.getParameter("new-password").toString();
-        log.info("dữ lieu nhan ve:" + curPassword + "password moi " + newPassword);
-        log.info("pass hiện taại:" +  user.getPassword());
-        log.info("pass hiện taại tu client:" +  passwordEncoder.encode(curPassword));
-        if(passwordEncoder.encode(curPassword).equals(user.getPassword()) && !newPassword.equals("")){
+        String newPassword =  request.getParameter("newPassword");
+        log.info("new password from client is "+newPassword);
+        if(!newPassword.equals("") || newPassword == null){
             user.setId(user.getId());
             user.setPassword(newPassword);
             userService.saveUser(user);
