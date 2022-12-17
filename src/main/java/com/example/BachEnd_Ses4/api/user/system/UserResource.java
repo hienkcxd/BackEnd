@@ -38,7 +38,12 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RestController
 @RequestMapping("/api")
 @RequiredArgsConstructor
-@CrossOrigin("http://localhost:4200/")
+@CrossOrigin(
+        allowedHeaders =
+        {"http://localhost:4200", "X-Requested-With", "Content-Type", "Accept", "Authorization","Access-Control-Allow-Origin"},
+        methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT,
+                RequestMethod.DELETE}
+)
 @Slf4j
 public class UserResource {
     @Autowired

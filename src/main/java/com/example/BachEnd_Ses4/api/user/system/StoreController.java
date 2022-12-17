@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user/store")
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:4200/")
 @Slf4j
 //@PreAuthorize("hasAnyAuthority('ROLE_USER')")
 public class StoreController {
@@ -52,7 +53,7 @@ public class StoreController {
 
     @PostMapping("")
     public void addStore(@RequestBody Store store){
-        store.setStoreName(getPrincipal());
+        store.setUsername(getPrincipal());
         storeService.addStore(store);
     }
 
