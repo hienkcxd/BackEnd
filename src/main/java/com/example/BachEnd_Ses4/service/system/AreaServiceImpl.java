@@ -57,6 +57,8 @@ public class AreaServiceImpl implements AreaService{
     @Override
     public void update(Area area) {
         Area areaDb = detailArea(area.getId());
+        areaDb.setUsername(area.getUsername());
+        areaDb.setId(area.getId());
         areaDb.setAreaName(area.getAreaName());
         areaRepo.save(areaDb);
     }

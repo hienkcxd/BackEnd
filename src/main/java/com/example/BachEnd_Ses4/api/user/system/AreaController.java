@@ -5,6 +5,7 @@ import com.example.BachEnd_Ses4.service.system.AreaService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/user/area")
 @RequiredArgsConstructor
+@CrossOrigin("http://localhost:4200")
 @Slf4j
 //@PreAuthorize("hasAnyAuthority('ROLE_USER')")
 public class AreaController {
@@ -41,9 +43,41 @@ public class AreaController {
         return areaService.areaByUsername(getPrincipal());
     }
 
+    @GetMapping("/{id}")
+    public Area detailArea(@PathVariable String id){
+        Area areaCur = areaService.detailArea(Long.valueOf(id));
+        if(areaCur!=null){
+            return areaService.detailArea(Long.valueOf(id));
+        }else {
+            return (Area) ResponseEntity.badRequest();
+        }
+    }
+
     @PostMapping("")
     public Area addArea(@RequestBody Area area){
+        area.setUsername(getPrincipal());
         areaService.addArea(area);
         return area;
+    }
+
+    @PutMapping("")
+    public void updArea(@RequestBody Area area){
+        Area areaCur = areaService.detailArea(area.getId());
+        if (areaCur!=null){
+            area.setUsername(getPrincipal());
+            areaService.update(area);
+        }else {
+            ResponseEntity.badRequest();
+        }
+    }
+
+    @DeleteMapping("{id}")
+    public void deleteArea(@PathVariable String id){
+        Area areaCur = areaService.detailArea(Long.valueOf(id));
+        if(areaCur.getUsername().equals(getPrincipal())){
+            areaService.delArea(Long.valueOf(id));
+        }else {
+            ResponseEntity.badRequest();
+        }
     }
 }
