@@ -16,6 +16,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/user/file-storage")
+@CrossOrigin("http://localhost:4200")
 @RequiredArgsConstructor
 @Slf4j
 //@PreAuthorize("hasAnyAuthority('ROLE_USER')")
@@ -56,6 +57,7 @@ public class FileStorageController {
 
     @PostMapping("")
     public void saveFile(@RequestBody FileStorage fileStorage){
+        fileStorage.setUsername(getPrincipal());
         fileStorageService.addFile(fileStorage);
     }
 
