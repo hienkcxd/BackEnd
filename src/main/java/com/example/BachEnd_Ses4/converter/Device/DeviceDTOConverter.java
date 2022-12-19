@@ -15,10 +15,11 @@ public class DeviceDTOConverter {
         String[] arrFileName = null;
         String fileName = ent.getFileName();
         arrFileName=fileName.substring(1, fileName.length()-1).split(", ");
-        dto.setDeviceID(ent.getDeviceID());
+        dto.setDeviceID(ent.getId().toString());
         dto.setDeviceName(ent.getDeviceName());
         dto.setArea(ent.getArea());
         dto.setGroupName(ent.getGroupName());
+        dto.setStoreName(ent.getStoreName());
         dto.setId(ent.getId());
         dto.setUsername(ent.getUsername());
         dto.setFileName(arrFileName);

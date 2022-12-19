@@ -19,7 +19,7 @@ import static javax.persistence.FetchType.EAGER;
 @AllArgsConstructor
 public class FileStorage {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, nullable = false)
     private String fileName;

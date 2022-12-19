@@ -4,6 +4,7 @@ import com.example.BachEnd_Ses4.DTO.Device.DeviceDTO;
 import com.example.BachEnd_Ses4.converter.Device.DeviceDTOConverter;
 import com.example.BachEnd_Ses4.model.Device.Device;
 import com.example.BachEnd_Ses4.model.File.FileStorage;
+import com.example.BachEnd_Ses4.model.MapData.DeviceInGroup;
 import com.example.BachEnd_Ses4.service.device.DeviceService;
 import com.example.BachEnd_Ses4.service.file.FileStorageService;
 import lombok.RequiredArgsConstructor;
@@ -28,6 +29,7 @@ public class DeviceController {
     @Autowired
     private DeviceService deviceService;
 
+
     @Autowired
     private FileStorageService fileStorageService;
 
@@ -50,7 +52,11 @@ public class DeviceController {
     public List<Device> findByUsername(){
         return deviceService.findByUsername(getPrincipal());
     }
-
+    @GetMapping("/DeviceDTO")
+    public List<DeviceDTO> findByUsernameDTO(){
+        List<Device> ent = deviceService.findByUsername(getPrincipal());
+        return converter.ListEntityToDTO(ent);
+    }
     @GetMapping("/dto={id}")
     public DeviceDTO findByUsernameV2(@PathVariable String id){
         Device ent =  deviceService.detail(Long.valueOf(id));
@@ -86,6 +92,16 @@ public class DeviceController {
         }
         deviceService.addDevice(device);
         return dto;
+    }
+    @PutMapping("")
+    public DeviceDTO updateDeviceDTO(@RequestBody DeviceDTO dto){
+        Device device = converter.dtoToEntity(dto);
+        if(getPrincipal().equals(device.getUsername())){
+            deviceService.updateDevice(device);
+            return dto;
+        }else {
+            return (DeviceDTO) ResponseEntity.badRequest();
+        }
     }
 
     @PutMapping("/name-device")

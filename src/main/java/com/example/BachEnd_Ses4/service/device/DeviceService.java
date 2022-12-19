@@ -18,6 +18,9 @@ public interface DeviceService {
 
     public void addGroupToDevice(Device device);
     public void updateActiveDevice(Device device);
+
+    public void updateDevice(Device device);
+
     public void updateSchedule(Device device);
     public void delete(Long id);
 }

@@ -12,7 +12,7 @@ import javax.persistence.*;
 @AllArgsConstructor
 public class DeviceGroup {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique = true, nullable = false)
     private String groupName;

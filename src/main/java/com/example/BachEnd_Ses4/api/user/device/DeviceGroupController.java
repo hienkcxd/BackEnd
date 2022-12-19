@@ -55,10 +55,11 @@ public class DeviceGroupController {
 
     @PostMapping("")
     public void addDevice(@RequestBody DeviceGroup device){
+        device.setUsername(getPrincipal());
         deviceGroupService.addGroup(device);
     }
 
-    @PutMapping("/name-device-group")
+    @PutMapping("")
     public void updDesDevice(@RequestBody DeviceGroup device){
         DeviceGroup deviceCur = deviceGroupService.detailGroup(device.getId());
         if (getPrincipal().equals(deviceCur.getUsername())){

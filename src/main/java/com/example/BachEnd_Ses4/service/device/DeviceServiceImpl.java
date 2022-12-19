@@ -88,6 +88,19 @@ public class DeviceServiceImpl implements DeviceService{
     }
 
     @Override
+    public void updateDevice(Device device) {
+        Device deviceDb = detail(device.getId());
+        deviceDb.setId(device.getId());
+        deviceDb.setDeviceID(device.getDeviceID());
+        deviceDb.setArea(device.getArea());
+        deviceDb.setDeviceName(device.getDeviceName());
+        deviceDb.setFileName(device.getFileName());
+        deviceDb.setStoreName(device.getStoreName());
+        deviceDb.setGroupName(device.getGroupName());
+        deviceRepo.save(deviceDb);
+    }
+
+    @Override
     public void updateSchedule(Device device) {
         Device deviceDb = detail(device.getId());
         deviceRepo.save(deviceDb);
