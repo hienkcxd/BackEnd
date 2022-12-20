@@ -50,7 +50,7 @@ public class DeviceInGroupController {
     }
     @PostMapping("")
     public DeviceInGroupDTO saveDeviceInGroup(@RequestBody DeviceInGroupDTO dto){
-        String[] deviceName = deviceService.deviceInGroup(dto.getGroupName());
+        String[] deviceName = deviceService.deviceInGroupGetDevice(dto.getGroupName());
         log.info(deviceName.toString());
         dto.setDeviceName(deviceName);
         DeviceInGroup ent = converter.dtoToEntity(dto);

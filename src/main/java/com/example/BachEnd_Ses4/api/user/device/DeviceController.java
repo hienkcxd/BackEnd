@@ -7,6 +7,7 @@ import com.example.BachEnd_Ses4.model.File.FileStorage;
 import com.example.BachEnd_Ses4.model.MapData.DeviceInGroup;
 import com.example.BachEnd_Ses4.service.device.DeviceService;
 import com.example.BachEnd_Ses4.service.file.FileStorageService;
+import com.example.BachEnd_Ses4.service.map.DeviceInGroupService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,8 @@ import java.util.List;
 public class DeviceController {
     @Autowired
     private DeviceService deviceService;
+    @Autowired
+    private DeviceInGroupService deviceInGroupService;
 
 
     @Autowired
@@ -81,7 +84,7 @@ public class DeviceController {
     }
     @GetMapping("/group={groupName}")
     public String[] deviceName(@PathVariable String groupName){
-        return deviceService.deviceInGroup(groupName);
+        return deviceService.deviceInGroupGetDevice(groupName);
     }
 
     @PostMapping("")
@@ -104,27 +107,36 @@ public class DeviceController {
         }
     }
 
-    @PutMapping("/name-device")
-    public void updDesDevice(@RequestBody Device device){
-        Device deviceCur = deviceService.detail(device.getId());
+    @PutMapping("/update-v2")
+    public void updDesDevice(@RequestBody Device deviceUpdate){
+        //Update file in device after accept update
+        String fileName = deviceService.deviceInGroupGetFileName(deviceUpdate.getGroupName());
+        log.info("update v2 - file name: "+fileName);
+        deviceUpdate.setFileName(fileName);
+        Device deviceCur = deviceService.detail(deviceUpdate.getId());
+        //remove device from old group
+        DeviceInGroup updateDeviceInGroup = deviceInGroupService.detailByGroupName(deviceCur.getGroupName());
+        String deviceInGroup = deviceService.removeDeviceInGroup(deviceCur);
+        updateDeviceInGroup.setDeviceName(deviceInGroup);
+        deviceInGroupService.update(updateDeviceInGroup);
+
+        //add device to new group
+        DeviceInGroup newDeviceInGroup = deviceInGroupService.detailByGroupName(deviceUpdate.getGroupName());
+        String adđevice = deviceService.addDeviceToGroup(deviceUpdate);
+        newDeviceInGroup.setDeviceName(adđevice);
+        deviceInGroupService.update(newDeviceInGroup);
+
+
         if (getPrincipal().equals(deviceCur.getUsername())){
-            deviceService.updateDesDevice(device);
+            deviceService.updateDesDevice(deviceUpdate);
         }else {
             log.info("device controller - line 65: user khong co quyen update ten va khu vuwjc hoat dong thiet bi nay");
             ResponseEntity.badRequest();
         }
+
+
     }
 
-    @PutMapping("/schedule-device")
-    public void updScheduleDevice(@RequestBody Device device){
-        Device deviceCur = deviceService.detail(device.getId());
-        if (getPrincipal().equals(deviceCur.getUsername())){
-            deviceService.updateSchedule(device);
-        }else {
-            log.info("device controller - line 76: user khong co quyen update lich phat nay");
-            ResponseEntity.badRequest();
-        }
-    }
 
     @PutMapping("/active-device")
     public void updActiveDevice(@RequestBody Device device){

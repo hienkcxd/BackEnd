@@ -1,9 +1,12 @@
 package com.example.BachEnd_Ses4.api.user.device;
 
+import com.example.BachEnd_Ses4.converter.MapConverter.DeviceInGroupConverter;
 import com.example.BachEnd_Ses4.model.Device.Device;
 import com.example.BachEnd_Ses4.model.Device.DeviceGroup;
+import com.example.BachEnd_Ses4.model.MapData.DeviceInGroup;
 import com.example.BachEnd_Ses4.service.device.DeviceGroupService;
 import com.example.BachEnd_Ses4.service.device.DeviceService;
+import com.example.BachEnd_Ses4.service.map.DeviceInGroupService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +27,12 @@ import java.util.List;
 public class DeviceGroupController {
     @Autowired
     private DeviceGroupService deviceGroupService;
-
+    @Autowired
+    private DeviceInGroupService deviceInGroupService;
+    @Autowired
+    private DeviceService deviceService;
+    @Autowired
+    private DeviceInGroupConverter converter;
 
     private String getPrincipal(){
         String userName = null;
@@ -57,6 +65,13 @@ public class DeviceGroupController {
     public void addDevice(@RequestBody DeviceGroup device){
         device.setUsername(getPrincipal());
         deviceGroupService.addGroup(device);
+        //save lên device in group
+        DeviceInGroup ent = new DeviceInGroup();
+        ent.setGroupName(device.getGroupName());
+        ent.setUsername(getPrincipal());
+        ent.setFileName("[]");
+        ent.setDeviceName("[]");
+        deviceInGroupService.addDeviceInGroup(ent);
     }
 
     @PutMapping("")

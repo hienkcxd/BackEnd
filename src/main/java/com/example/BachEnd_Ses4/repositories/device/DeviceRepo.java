@@ -1,6 +1,7 @@
 package com.example.BachEnd_Ses4.repositories.device;
 
 import com.example.BachEnd_Ses4.model.Device.Device;
+import com.example.BachEnd_Ses4.model.MapData.DeviceInGroup;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -14,6 +15,8 @@ public interface DeviceRepo extends JpaRepository<Device, Long> {
 
     @Query(value = "select s from Device s where s.groupName = ?1")
     public List<Device> findByGroupName(String groupName);
+    @Query(value = "select s from DeviceInGroup s where s.groupName = ?1")
+    public DeviceInGroup getFileName(String groupName);
     @Query(value = "select s from Device s where s.username = ?1 and s.storeName = ?2")
     public List<Device> findByStore(String username, String storeName);
 
