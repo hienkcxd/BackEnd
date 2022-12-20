@@ -114,18 +114,26 @@ public class DeviceController {
         log.info("update v2 - file name: "+fileName);
         deviceUpdate.setFileName(fileName);
         Device deviceCur = deviceService.detail(deviceUpdate.getId());
-        //remove device from old group
-        DeviceInGroup updateDeviceInGroup = deviceInGroupService.detailByGroupName(deviceCur.getGroupName());
-        String deviceInGroup = deviceService.removeDeviceInGroup(deviceCur);
-        updateDeviceInGroup.setDeviceName(deviceInGroup);
-        deviceInGroupService.update(updateDeviceInGroup);
+        if(deviceCur.getGroupName().equals("No_Group")){
+            deviceCur.setGroupName(deviceUpdate.getGroupName());
+            //Khong can remove, add truc tiep
+            DeviceInGroup newDeviceInGroup = deviceInGroupService.detailByGroupName(deviceUpdate.getGroupName());
+            String adđevice = deviceService.addDeviceToGroup(deviceUpdate);
+            newDeviceInGroup.setDeviceName(adđevice);
+            deviceInGroupService.update(newDeviceInGroup);
+        }else {
+            //remove device from old group
+            DeviceInGroup updateDeviceInGroup = deviceInGroupService.detailByGroupName(deviceCur.getGroupName());
+            String deviceInGroup = deviceService.removeDeviceInGroup(deviceCur);
+            updateDeviceInGroup.setDeviceName(deviceInGroup);
+            deviceInGroupService.update(updateDeviceInGroup);
 
-        //add device to new group
-        DeviceInGroup newDeviceInGroup = deviceInGroupService.detailByGroupName(deviceUpdate.getGroupName());
-        String adđevice = deviceService.addDeviceToGroup(deviceUpdate);
-        newDeviceInGroup.setDeviceName(adđevice);
-        deviceInGroupService.update(newDeviceInGroup);
-
+            //add device to new group
+            DeviceInGroup newDeviceInGroup = deviceInGroupService.detailByGroupName(deviceUpdate.getGroupName());
+            String adđevice = deviceService.addDeviceToGroup(deviceUpdate);
+            newDeviceInGroup.setDeviceName(adđevice);
+            deviceInGroupService.update(newDeviceInGroup);
+        }
 
         if (getPrincipal().equals(deviceCur.getUsername())){
             deviceService.updateDesDevice(deviceUpdate);
