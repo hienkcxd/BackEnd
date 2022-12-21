@@ -127,8 +127,8 @@ public class DeviceController {
             deviceCur.setGroupName(deviceUpdate.getGroupName());
             //Khong can remove, add truc tiep
             DeviceInGroup newDeviceInGroup = deviceInGroupService.detailByGroupName(deviceUpdate.getGroupName());
-            String adđevice = deviceService.addDeviceToGroup(deviceUpdate);
-            newDeviceInGroup.setDeviceName(adđevice);
+            String addDevice = deviceService.addDeviceToGroup(deviceUpdate);
+            newDeviceInGroup.setDeviceName(addDevice);
             deviceInGroupService.update(newDeviceInGroup);
         }else {
             //remove device from old group
