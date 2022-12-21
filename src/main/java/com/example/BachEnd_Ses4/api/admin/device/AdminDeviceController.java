@@ -51,7 +51,7 @@ public class AdminDeviceController {
 
     @GetMapping("")
     public List<Device> findByUsername(){
-        return deviceService.findByUsername(getPrincipal());
+        return deviceService.findAll();
     }
     @GetMapping("/DeviceDTO")
     public List<DeviceDTO> findByUsernameDTO(){

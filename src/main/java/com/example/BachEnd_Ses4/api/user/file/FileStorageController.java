@@ -42,7 +42,7 @@ public class FileStorageController {
 
     @GetMapping("")
     public List<FileStorage> fileStorageList(){
-        return fileStorageService.findByUsername(getPrincipal());
+        return fileStorageService.findAll();
     }
 
     @GetMapping("/fileId={fileId}")
