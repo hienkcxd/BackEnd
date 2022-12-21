@@ -160,6 +160,7 @@ public class DeviceController {
         Device deviceCur = deviceService.detail(device.getId());
         if (getPrincipal().equals(deviceCur.getUsername())){
             deviceService.updateActiveDevice(device);
+
         }else {
             log.info("device controller - line84: user khong co quyen active thiet bi nay");
             ResponseEntity.badRequest();
@@ -170,6 +171,11 @@ public class DeviceController {
     public void deleteDevice(@PathVariable String deleteId){
         Device deviceCur = deviceService.detail(Long.valueOf(deleteId));
         if (getPrincipal().equals(deviceCur.getUsername())){
+            //remove device from old group
+            DeviceInGroup updateDeviceInGroup = deviceInGroupService.detailByGroupName(deviceCur.getGroupName());
+            String deviceInGroup = deviceService.removeDeviceInGroup(deviceCur);
+            updateDeviceInGroup.setDeviceName(deviceInGroup);
+            deviceInGroupService.update(updateDeviceInGroup);
             deviceService.delete(Long.valueOf(deleteId));
         }else {
             log.info("device controller - line 95: user khong co quyen xoa device nay");

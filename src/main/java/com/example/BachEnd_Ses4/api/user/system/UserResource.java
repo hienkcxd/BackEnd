@@ -93,6 +93,12 @@ public class UserResource {
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
+    @PostMapping("/admin/add-Role-User")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public ResponseEntity<?> addRoleToUser(HttpServletRequest request){
+        userService.addRoleToUser(request.getParameter("username"), request.getParameter("role-name"));
+        return ResponseEntity.ok().build();
+    }
 
     //Api user sử dụng.
     @GetMapping("/user/user-detail-dto")
@@ -173,12 +179,7 @@ public class UserResource {
 //        String username = converterToken.convertTokenToUserName(request);
 //        return ResponseEntity.ok().body(userService.getUser(username));
 //    }
-//    @PostMapping("/role/add-Role-User")
-//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-//    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form){
-//        userService.addRoleToUser(form.getUserName(), form.getRolename());
-//        return ResponseEntity.ok().build();
-//    }
+
 //
 //    @GetMapping("/user-detail")
 //    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")

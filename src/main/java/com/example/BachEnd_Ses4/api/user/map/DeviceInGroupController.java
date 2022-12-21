@@ -76,8 +76,8 @@ public class DeviceInGroupController {
             device.setFileName(ent.getFileName());
             deviceService.updateDevice(device);
         }
-
     }
+
     @DeleteMapping("/{id}")
     public void deleteDevice(@PathVariable String id){
         DeviceInGroup deviceCur = deviceInGroupService.detail(Long.valueOf(id));
