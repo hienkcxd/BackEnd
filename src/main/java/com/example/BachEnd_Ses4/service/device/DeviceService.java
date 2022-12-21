@@ -10,7 +10,9 @@ public interface DeviceService {
     public void addDevice(Device device);
 
     public String[] deviceInGroupGetDevice(String groupName);
-    public String deviceInGroupGetFileName(String groupName);
+    public String[] deviceInGroupGetFileName(String groupName);
+
+    public String getFileNameByGroup(String groupName);
     public List<Device> findByUsername(String username);
     public List<Device> findByStore(String username, String storeName);
     public List<Device> findAll();

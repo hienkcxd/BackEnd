@@ -2,6 +2,7 @@ package com.example.BachEnd_Ses4.api.user.map;
 
 import com.example.BachEnd_Ses4.DTO.MapDTO.DeviceInGroupDTO;
 import com.example.BachEnd_Ses4.converter.MapConverter.DeviceInGroupConverter;
+import com.example.BachEnd_Ses4.model.Device.Device;
 import com.example.BachEnd_Ses4.model.Device.DeviceGroup;
 import com.example.BachEnd_Ses4.model.MapData.DeviceInGroup;
 import com.example.BachEnd_Ses4.service.device.DeviceService;
@@ -13,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -59,12 +61,20 @@ public class DeviceInGroupController {
     }
     @PutMapping("")
     public void updateContent(@RequestBody DeviceInGroupDTO dto){
+        //cập nhập file phát trên device ingroup
+        DeviceInGroupDTO dtoCur = converter.entityToDTO(deviceInGroupService.detailByGroupName(dto.getGroupName()));
+        String[] fileName = dto.getFileName();
+        dtoCur.setFileName(fileName);
+        DeviceInGroup ent = converter.dtoToEntity(dtoCur);
+        deviceInGroupService.update(ent);
+        //cập nhập lại tất cả các device theo file đã thay đổi
         String[] deviceName = deviceService.deviceInGroupGetDevice(dto.getGroupName());
-        dto.setDeviceName(deviceName);
-        String[] fileName = deviceService.deviceInGroupGetDevice(dto.getGroupName());
-        dto.setDeviceName(deviceName);
-        DeviceInGroup ent = converter.dtoToEntity(dto);
-        deviceInGroupService.addDeviceInGroup(ent);
+        for (int i = 0; i<deviceName.length; i++){
+            Device device = deviceService.detailByDeviceName(deviceName[i]);
+            device.setFileName(ent.getFileName());
+            deviceService.updateDevice(device);
+        }
+
     }
     @DeleteMapping("/{id}")
     public void deleteDevice(@PathVariable String id){

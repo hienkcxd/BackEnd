@@ -119,7 +119,7 @@ public class DeviceController {
     @PutMapping("/update-v2")
     public void updDesDevice(@RequestBody Device deviceUpdate){
         //Update file in device after accept update
-        String fileName = deviceService.deviceInGroupGetFileName(deviceUpdate.getGroupName());
+        String fileName = deviceService.getFileNameByGroup(deviceUpdate.getGroupName());
         log.info("update v2 - file name: "+fileName);
         deviceUpdate.setFileName(fileName);
         Device deviceCur = deviceService.detail(deviceUpdate.getId());

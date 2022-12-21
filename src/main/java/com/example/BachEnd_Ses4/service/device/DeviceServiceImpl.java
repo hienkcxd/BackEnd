@@ -43,10 +43,16 @@ public class DeviceServiceImpl implements DeviceService{
     }
 
     @Override
-    public String deviceInGroupGetFileName(String groupName) {
+    public String[] deviceInGroupGetFileName(String groupName) {
         String[] arrFileName = null;
         String fileName = deviceRepo.getFileName(groupName).getFileName();
-//        return arrFileName=fileName.substring(1, fileName.length()-1).split(", ");
+        arrFileName=fileName.substring(1, fileName.length()-1).split(", ");
+        return arrFileName;
+    }
+
+    @Override
+    public String getFileNameByGroup(String groupName) {
+        String fileName = deviceRepo.getFileName(groupName).getFileName();
         return fileName;
     }
 
