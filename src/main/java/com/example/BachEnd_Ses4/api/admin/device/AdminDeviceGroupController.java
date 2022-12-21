@@ -45,8 +45,8 @@ public class AdminDeviceGroupController {
     }
 
     @GetMapping("")
-    public List<DeviceGroup> findByUsername(){
-        return deviceGroupService.findByUsername(getPrincipal());
+    public List<DeviceGroup> findAll(){
+        return deviceGroupService.findAll();
     }
 
     @GetMapping("/{deviceId}")

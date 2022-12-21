@@ -36,7 +36,7 @@ public class AdminStoreController {
 
     @GetMapping("")
     public List<Store> storeList(){
-        return storeService.listStoreByUsername(getPrincipal());
+        return storeService.listStore();
     }
 
     @GetMapping("/storeid={id}")

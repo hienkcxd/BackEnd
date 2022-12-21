@@ -74,12 +74,6 @@ public class UserResource {
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
-    @PostMapping("admin/role/save")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<Role> saveUser(@RequestBody Role role){
-        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
-        return ResponseEntity.created(uri).body(userService.saveRole(role));
-    }
     @GetMapping("/admin/user-detail-dto")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public UserDetailDTO getUsersByAdminNameDTO(HttpServletRequest request){
@@ -87,6 +81,15 @@ public class UserResource {
         log.info("user resource convertTokenToRole: " + converterToken.convertTokenToRole(request));
         return converter.entityToDTO(userService.getUser(getPrincipal()));
     }
+
+    @GetMapping("/admin/user-dto/list")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+    public List<UserDetailDTO> userDTOList(){
+        List<User> ent = userService.getUsers();
+        List<UserDetailDTO> dto = converter.ListEntityToDTO(ent);
+        return dto;
+    }
+
     @PostMapping("/admin/save")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<User> saveUser(@RequestBody User user){

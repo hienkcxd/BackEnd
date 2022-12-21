@@ -39,7 +39,7 @@ public class AdminAreaController {
 
     @GetMapping("")
     public List<Area> listArea(){
-        return areaService.areaByUsername(getPrincipal());
+        return areaService.areaList();
     }
 
     @GetMapping("/{id}")

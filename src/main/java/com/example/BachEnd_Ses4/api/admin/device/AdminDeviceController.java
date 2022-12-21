@@ -55,7 +55,7 @@ public class AdminDeviceController {
     }
     @GetMapping("/DeviceDTO")
     public List<DeviceDTO> findByUsernameDTO(){
-        List<Device> ent = deviceService.findByUsername(getPrincipal());
+        List<Device> ent = deviceService.findAll();
         return converter.ListEntityToDTO(ent);
     }
     @GetMapping("/dto={id}")

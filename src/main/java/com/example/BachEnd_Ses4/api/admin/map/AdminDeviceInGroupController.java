@@ -41,7 +41,7 @@ public class AdminDeviceInGroupController {
     }
     @GetMapping("")
     public List<DeviceInGroupDTO> findByUsername(){
-        List<DeviceInGroup> ent = deviceInGroupService.findByUsername(getPrincipal());
+        List<DeviceInGroup> ent = deviceInGroupService.findAll();
         return converter.ListEntityToDTO(ent);
     }
     @GetMapping("/{idGroup}")
