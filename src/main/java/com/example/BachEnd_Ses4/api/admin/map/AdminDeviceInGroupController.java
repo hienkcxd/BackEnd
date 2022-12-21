@@ -1,9 +1,8 @@
-package com.example.BachEnd_Ses4.api.user.map;
+package com.example.BachEnd_Ses4.api.admin.map;
 
 import com.example.BachEnd_Ses4.DTO.MapDTO.DeviceInGroupDTO;
 import com.example.BachEnd_Ses4.converter.MapConverter.DeviceInGroupConverter;
 import com.example.BachEnd_Ses4.model.Device.Device;
-import com.example.BachEnd_Ses4.model.Device.DeviceGroup;
 import com.example.BachEnd_Ses4.model.MapData.DeviceInGroup;
 import com.example.BachEnd_Ses4.service.device.DeviceService;
 import com.example.BachEnd_Ses4.service.map.DeviceInGroupService;
@@ -14,15 +13,14 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/user/device-in-group")
+@RequestMapping("/api/admin/device-in-group")
 @CrossOrigin("http://localhost:4200")
 @Slf4j
-//@PreAuthorize("hasAnyAuthority('ROLE_USER')")
-public class DeviceInGroupController {
+//@PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+public class AdminDeviceInGroupController {
     @Autowired
     private DeviceInGroupService deviceInGroupService;
     @Autowired

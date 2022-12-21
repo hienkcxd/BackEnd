@@ -40,7 +40,7 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequiredArgsConstructor
 @CrossOrigin(
         allowedHeaders =
-        {"http://localhost:4200", "X-Requested-With", "Content-Type", "Accept", "Authorization","Access-Control-Allow-Origin"},
+                {"http://localhost:4200", "X-Requested-With", "Content-Type", "Accept", "Authorization","Access-Control-Allow-Origin"},
         methods = {RequestMethod.POST, RequestMethod.GET, RequestMethod.PUT,
                 RequestMethod.DELETE}
 )
@@ -66,51 +66,44 @@ public class UserResource {
 
         return userName;
     }
+
+    //API admin quản lý user
     @GetMapping("/admin/list-user")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<List<User>> getUsers(){
         return ResponseEntity.ok().body(userService.getUsers());
     }
 
-    @GetMapping("/login-token")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
-    public ResponseEntity<Map<Integer,String>> checkLogin(HttpServletRequest request){
-        Map<Integer,String> status = new HashMap<Integer,String>();
-        status.put(1, "2689367B205C16CE32ED4200942B8B8B1E262DFC70D9BC9FBC77C49699A4F1DF");
-        return ResponseEntity.ok(status);
-    }
-
-    @GetMapping("/user-detail")
+    @PostMapping("admin/role/save")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-    public ResponseEntity<User> getUsersByAdminName(HttpServletRequest request){
-        String username = converterToken.convertTokenToUserName(request);
-        log.info("user resource convertTokenToRole: " + converterToken.convertTokenToRole(request));
-        return ResponseEntity.ok().body(userService.getUser(username));
+    public ResponseEntity<Role> saveUser(@RequestBody Role role){
+        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
+        return ResponseEntity.created(uri).body(userService.saveRole(role));
     }
-
-
-    @GetMapping("/user")
-    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
-    public ResponseEntity<User> getUsersByUserName(HttpServletRequest request){
-        String username = converterToken.convertTokenToUserName(request);
-        return ResponseEntity.ok().body(userService.getUser(username));
-    }
-
-    @GetMapping("/user/user-detail")
-    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    @GetMapping("/admin/user-detail-dto")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public UserDetailDTO getUsersByAdminNameDTO(HttpServletRequest request){
         String username = converterToken.convertTokenToUserName(request);
         log.info("user resource convertTokenToRole: " + converterToken.convertTokenToRole(request));
         return converter.entityToDTO(userService.getUser(getPrincipal()));
     }
-
-    @PostMapping("/user/save")
+    @PostMapping("/admin/save")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
     public ResponseEntity<User> saveUser(@RequestBody User user){
         URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
         return ResponseEntity.created(uri).body(userService.saveUser(user));
     }
 
+    //Api user sử dụng.
+    @GetMapping("/user/user-detail-dto")
+    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+    public UserDetailDTO getUsersByUserNameDTO(HttpServletRequest request){
+        String username = converterToken.convertTokenToUserName(request);
+        log.info("user resource convertTokenToRole: " + converterToken.convertTokenToRole(request));
+        return converter.entityToDTO(userService.getUser(getPrincipal()));
+    }
+
+    //Api sử dụng cho cả 2 user và admin
     @PostMapping("/change-password")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     public User changePassword(HttpServletRequest request){
@@ -129,20 +122,13 @@ public class UserResource {
     }
 
 
-
-//    @PostMapping("/role/save")
-//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-//    public ResponseEntity<Role> saveUser(@RequestBody Role role){
-//        URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/role/save").toUriString());
-//        return ResponseEntity.created(uri).body(userService.saveRole(role));
-//    }
-//    @PostMapping("/role/add-Role-User")
-//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
-//    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form){
-//        userService.addRoleToUser(form.getUserName(), form.getRolename());
-//        return ResponseEntity.ok().build();
-//    }
-
+    @GetMapping("/login-token")
+    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
+    public ResponseEntity<Map<Integer,String>> checkLogin(HttpServletRequest request){
+        Map<Integer,String> status = new HashMap<Integer,String>();
+        status.put(1, "2689367B205C16CE32ED4200942B8B8B1E262DFC70D9BC9FBC77C49699A4F1DF");
+        return ResponseEntity.ok(status);
+    }
     @GetMapping("/token/refresh")
     @PreAuthorize("hasAnyAuthority('ROLE_ADMIN', 'ROLE_USER')")
     public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -179,6 +165,28 @@ public class UserResource {
             throw new RuntimeException("Refresh token is missing");
         }
     }
+
+
+//    @GetMapping("/user")
+//    @PreAuthorize("hasAnyAuthority('ROLE_USER')")
+//    public ResponseEntity<User> getUsersByUserName(HttpServletRequest request){
+//        String username = converterToken.convertTokenToUserName(request);
+//        return ResponseEntity.ok().body(userService.getUser(username));
+//    }
+//    @PostMapping("/role/add-Role-User")
+//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+//    public ResponseEntity<?> addRoleToUser(@RequestBody RoleToUserForm form){
+//        userService.addRoleToUser(form.getUserName(), form.getRolename());
+//        return ResponseEntity.ok().build();
+//    }
+//
+//    @GetMapping("/user-detail")
+//    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN')")
+//    public ResponseEntity<User> getUsersByAdminName(HttpServletRequest request){
+//        String username = converterToken.convertTokenToUserName(request);
+//        log.info("user resource convertTokenToRole: " + converterToken.convertTokenToRole(request));
+//        return ResponseEntity.ok().body(userService.getUser(username));
+//    }
 
 }
 @Data

@@ -20,7 +20,6 @@ public class User {
     private Long id;
     private Long deviceActives;
     private String name;
-
     @Column(unique = true, nullable = false)
     private String userName;
     @Column(unique = true, nullable = false)
