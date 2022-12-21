@@ -18,6 +18,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import javax.ws.rs.Path;
+import java.util.Arrays;
 import java.util.List;
 
 @RestController
@@ -92,9 +93,18 @@ public class DeviceController {
         Device device = converter.dtoToEntity(dto);
         if(device.getGroupName()==null){
             device.setGroupName("No_Group");
+            deviceService.addDevice(device);
+            return dto;
+        }else {
+            String fileName= deviceInGroupService.detailByGroupName(device.getGroupName()).getFileName();
+            device.setFileName(fileName);
+            deviceService.addDevice(device);
+            String[] deviceName = deviceService.deviceInGroupGetDevice(dto.getGroupName());
+            DeviceInGroup deviceInGroupCur = deviceInGroupService.detailByGroupName(dto.getGroupName());
+            deviceInGroupCur.setDeviceName(Arrays.toString(deviceName));
+            deviceInGroupService.update(deviceInGroupCur);
+            return dto;
         }
-        deviceService.addDevice(device);
-        return dto;
     }
     @PutMapping("")
     public DeviceDTO updateDeviceDTO(@RequestBody DeviceDTO dto){
@@ -106,7 +116,6 @@ public class DeviceController {
             return (DeviceDTO) ResponseEntity.badRequest();
         }
     }
-
     @PutMapping("/update-v2")
     public void updDesDevice(@RequestBody Device deviceUpdate){
         //Update file in device after accept update
@@ -130,8 +139,8 @@ public class DeviceController {
 
             //add device to new group
             DeviceInGroup newDeviceInGroup = deviceInGroupService.detailByGroupName(deviceUpdate.getGroupName());
-            String adđevice = deviceService.addDeviceToGroup(deviceUpdate);
-            newDeviceInGroup.setDeviceName(adđevice);
+            String addDevice = deviceService.addDeviceToGroup(deviceUpdate);
+            newDeviceInGroup.setDeviceName(addDevice);
             deviceInGroupService.update(newDeviceInGroup);
         }
 

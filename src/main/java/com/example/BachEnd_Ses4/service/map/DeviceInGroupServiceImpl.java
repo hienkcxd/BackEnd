@@ -49,9 +49,7 @@ public class DeviceInGroupServiceImpl implements DeviceInGroupService{
     public void update(DeviceInGroup deviceInGroup) {
         DeviceInGroup deviceInGroupDb = detail(deviceInGroup.getId());
         deviceInGroupDb.setId(deviceInGroup.getId());
-        deviceInGroupDb.setGroupName(deviceInGroup.getGroupName());
         deviceInGroupDb.setFileName(deviceInGroup.getFileName());
-        deviceInGroupDb.setDeviceName(deviceInGroup.getDeviceName());
         deviceInGroupRepo.save(deviceInGroupDb);
     }
 }

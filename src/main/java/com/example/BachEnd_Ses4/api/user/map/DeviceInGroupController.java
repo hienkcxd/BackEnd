@@ -57,6 +57,15 @@ public class DeviceInGroupController {
         deviceInGroupService.addDeviceInGroup(ent);
         return dto;
     }
+    @PutMapping("")
+    public void updateContent(@RequestBody DeviceInGroupDTO dto){
+        String[] deviceName = deviceService.deviceInGroupGetDevice(dto.getGroupName());
+        dto.setDeviceName(deviceName);
+        String[] fileName = deviceService.deviceInGroupGetDevice(dto.getGroupName());
+        dto.setDeviceName(deviceName);
+        DeviceInGroup ent = converter.dtoToEntity(dto);
+        deviceInGroupService.addDeviceInGroup(ent);
+    }
     @DeleteMapping("/{id}")
     public void deleteDevice(@PathVariable String id){
         DeviceInGroup deviceCur = deviceInGroupService.detail(Long.valueOf(id));
